@@ -24,3 +24,6 @@
 * Go to `File > Build And Run`
 * Give the .apk file a name and click Save
 * Project should build and automatically run on your phone
+
+## Creating Custom Image Targets
+* https://www.youtube.com/watch?v=MtiUx_szKbI

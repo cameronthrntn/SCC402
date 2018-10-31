@@ -16,12 +16,13 @@ MonoBehaviour:
     ufoLicenseKey: QVYwajNydi8vLy8vQUFBQUtBREYxaXpwekU2YmozaEhZQm1IeisrSHVjMGZ1Wms2aFNYSnRadkdhZ3dLVkwxMVBDT2pYWmR3bWNCeDdnZllKQTIwNzlTYWZ1VTA1elRUQTlWMFZ5Ty92aVVoM0VUUUg2anFsSVFVc3ZFYmZwMnFnSW9WZ3dpYnpCYnNZQ3pIdm5nTnp6R0poU2YzN3FYbzNtN2h4N3hGRlJnMVFWS0JUaElvNCsxYmh1aTNkYXBSSnZVbm51TGIxRGdOR1pVZWlVUGthdXNidFVHK3ZMZzRZUTFkV201aHc0ZFRPOTNVWXNZSWNkUzk1aTRoRERHcVZ4bXoxRG5acVpQTmQ5WmFyS2ZoaVhIRnpDWWc1eUhNTElZa1dPYkw2QzJlS2JIeWZOYVdTUXl4ei9TUE85anJyYTJpZFNyUC8xaXpUYnF0RmNTUzVkWklXZkhxZHRTSDVRKzdQUlhndW9BT082eEJVQllpa0xYQ3hnMG4=
     delayedInitialization: 0
     cameraDeviceModeSetting: -1
-    maxSimultaneousImageTargets: 1
-    maxSimultaneousObjectTargets: 1
+    maxSimultaneousImageTargets: 3
+    maxSimultaneousObjectTargets: 3
     useDelayedLoadingObjectTargets: 0
     cameraDirection: 0
     mirrorVideoBackground: 0
-    version: 7.2.23
+    version: 7.5.26
+    eulaAcceptedVersions: '{"Values":["7.2","7.5"]}'
   digitalEyewear:
     cameraOffset: 0.06
     distortionRenderingLayer: 31
@@ -46,8 +47,8 @@ MonoBehaviour:
   videoBackground:
     clippingMode: 0
     numDivisions: 2
-    videoBackgroundShader: {fileID: 15311, guid: 0000000000000000f000000000000000,
-      type: 0}
+    videoBackgroundShader: {fileID: 4800000, guid: f40623b353e2f1943b1b3ba42975db7a,
+      type: 3}
     matteShader: {fileID: 15310, guid: 0000000000000000f000000000000000, type: 0}
     videoBackgroundEnabled: 1
   deviceTracker:

@@ -113,6 +113,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &6968550 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114198103267479870, guid: 5741787df18e9514698cd72e6ab7ec11,
+    type: 2}
+  m_PrefabInternal: {fileID: 1222114374}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!43 &12630060
 Mesh:
   m_ObjectHideFlags: 0
@@ -450,8 +456,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe41d1ed8bbdcfa4bb145a99ee89edfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeGazingTriggerMillis: 3000
   triggerSound: {fileID: 8300000, guid: bf86c7e27360ee74781b6d256aeeae86, type: 3}
+  radialProgressBar: {fileID: 6968550}
+  radialProgressBarFill: {fileID: 1343797873}
 --- !u!82 &539163342
 AudioSource:
   m_ObjectHideFlags: 0
@@ -820,6 +827,21 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 224683426214656406, guid: 5741787df18e9514698cd72e6ab7ec11,
+        type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 224683426214656406, guid: 5741787df18e9514698cd72e6ab7ec11,
+        type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 224683426214656406, guid: 5741787df18e9514698cd72e6ab7ec11,
+        type: 2}
+      propertyPath: m_LocalScale.z
+      value: 0.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5741787df18e9514698cd72e6ab7ec11, type: 2}
   m_IsPrefabAsset: 0
@@ -828,6 +850,12 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 224683426214656406, guid: 5741787df18e9514698cd72e6ab7ec11,
     type: 2}
   m_PrefabInternal: {fileID: 1222114374}
+--- !u!114 &1343797873 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114442922534420790, guid: 5741787df18e9514698cd72e6ab7ec11,
+    type: 2}
+  m_PrefabInternal: {fileID: 1222114374}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!4 &1375737369 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: 8ea975d0510a17542b93328d96d6c16d,

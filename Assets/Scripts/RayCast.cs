@@ -14,7 +14,6 @@ public class RayCast : MonoBehaviour {
     private bool hasPerformedActionOnObject = false;
 
     private float timeGazingTriggerMillis = 2200;
-    public AudioClip triggerSound;
 
     public Image radialProgressBar;
     public Image radialProgressBarFill;
@@ -83,7 +82,9 @@ public class RayCast : MonoBehaviour {
     }
 
     private void performAction() {
-        source.PlayOneShot(triggerSound, 1);
+        AudioSource audioSource = gameObjectHit.GetComponent<AudioSource>();
+
+        audioSource.Play();
         hasPerformedActionOnObject = true;
     }
 }

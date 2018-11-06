@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23281437883292032}
   - component: {fileID: 135993292434292406}
   - component: {fileID: 82811429030058836}
+  - component: {fileID: 122625512182988476}
   m_Layer: 0
   m_Name: Hotspot
   m_TagString: Untagged
@@ -180,6 +181,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!122 &122625512182988476
+Halo:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1893468810556180}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 4286611584
+  m_Size: 0.8
 --- !u!135 &135993292434292406
 SphereCollider:
   m_ObjectHideFlags: 1

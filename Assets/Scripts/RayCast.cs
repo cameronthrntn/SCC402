@@ -48,7 +48,7 @@ public class RayCast : MonoBehaviour {
             floatingText.transform.LookAt(camera.transform);
         }
 
-        
+
         if (objectPerformingActionOn != null && !assistantAudioSource.isPlaying) {
             // ((Light)assistant.GetComponent<Light>()).enabled = false;
             assistant.GetComponent<Renderer>().material = assistantMat;

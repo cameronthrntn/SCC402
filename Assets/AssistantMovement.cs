@@ -20,6 +20,8 @@ public class AssistantMovement : MonoBehaviour
 	void Update () {
 		Vector3 pos = Camera.main.WorldToViewportPoint (transform.position);
 
+		Debug.LogError(pos.x + "  " + transform.position.x);
+
 		float distX = pos.x - transform.position.x;
 		float distY = pos.y - transform.position.y;
 

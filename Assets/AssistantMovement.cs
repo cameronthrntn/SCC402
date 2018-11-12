@@ -15,7 +15,8 @@ public class AssistantMovement : MonoBehaviour
 		//		3 game metres above center of screen
 		//		20 game metres in front of camera
 		Vector3 targetPosition = Camera.main.transform.TransformPoint(new Vector3(8, 5, 25));
-
 		transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+
+		transform.LookAt(Camera.main.transform);
 	}
 }

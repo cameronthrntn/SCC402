@@ -8,6 +8,8 @@ public class ReceiveResult : MonoBehaviour
 
     float scale = 0.01f;
 
+    public GameObject monumentContainer;
+
     // Use this for initialization
     void Start()
     {
@@ -26,11 +28,11 @@ public class ReceiveResult : MonoBehaviour
 
         if (result[0].Equals("scale up"))
         {
-            GameObject.Find("castle").transform.localScale += new Vector3(scale, scale, scale);
+            monumentContainer.transform.localScale += new Vector3(scale, scale, scale);
         }
         else if (result[0].Equals("scale down"))
         {
-            GameObject.Find("castle").transform.localScale += new Vector3(-scale, -scale, -scale);
+            monumentContainer.transform.localScale += new Vector3(-scale, -scale, -scale);
         }
     }
 

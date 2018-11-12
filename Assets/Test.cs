@@ -5,13 +5,15 @@ using UnityEngine.UI;
 
 public class Test : MonoBehaviour
 {
-    Button btn;
+
+    public Button btn;
+
     // Use this for initialization
     void Start()
     {
-
-        btn = GameObject.Find("Button").GetComponent<Button>();
-        btn.onClick.AddListener(TaskOnClick);
+        if (btn != null) {
+            btn.onClick.AddListener(TaskOnClick);
+        }
     }
 
     void TaskOnClick()

@@ -11,6 +11,7 @@ public class RayCast : MonoBehaviour {
     private float timeGazing = 0;
     private GameObject gameObjectHit = null;
     private bool hasPerformedActionOnObject = false;
+    private GameObject objectPerformingActionOn = null;
 
     private float timeGazingTriggerMillis = 2200;
 
@@ -21,6 +22,8 @@ public class RayCast : MonoBehaviour {
     public Material assistantSpeakingMat;
     
     private AudioSource assistantAudioSource;
+
+    private GameObject floatingText;
 
     // Use this for initialization
     void Start () {
@@ -40,10 +43,19 @@ public class RayCast : MonoBehaviour {
             gazeLeftObject();
         }
 
-        if (!assistantAudioSource.isPlaying) {
-            ((Light)assistant.GetComponent<Light>()).enabled = false;
-            assistant.GetComponent<Renderer>().material = assistantMat;
+        if (floatingText != null)
+        {
+            floatingText.transform.LookAt(camera.transform);
         }
+
+
+        if (objectPerformingActionOn != null && !assistantAudioSource.isPlaying) {
+            // ((Light)assistant.GetComponent<Light>()).enabled = false;
+            assistant.GetComponent<Renderer>().material = assistantMat;
+            objectPerformingActionOn = null;
+            setFloatingTextActive(false);
+        }
+
     }
 
     private void rayHit(RaycastHit hit) {
@@ -78,13 +90,35 @@ public class RayCast : MonoBehaviour {
         }
     }
 
+    private void setFloatingTextActive(bool active)
+    {
+        if (floatingText != null)
+        {
+            floatingText.SetActive(active);
+        }
+    }
+
     private void startGazeAt(GameObject gameObject) {
+        gazeLeftObject();
+
+        if (objectPerformingActionOn == null)
+        {
+            floatingText = gameObject.transform.Find("FloatingText").gameObject;
+            setFloatingTextActive(true);
+        }
+
         gameObjectHit = gameObject;
         timeGazing = getTimeMillis();
         hasPerformedActionOnObject = false;
     }
 
-    private void gazeLeftObject() {
+    private void gazeLeftObject()
+    {
+        if (objectPerformingActionOn == null)
+        {
+            setFloatingTextActive(false);
+        }
+
         timeGazing = 0;
         gameObjectHit = null;
         radialProgressBarFill.fillAmount = 0;
@@ -96,9 +130,18 @@ public class RayCast : MonoBehaviour {
         assistantAudioSource.clip = hotspotAudio.clip;
         assistantAudioSource.Play();
 
-        ((Light)assistant.GetComponent<Light>()).enabled = true;
+        // ((Light)assistant.GetComponent<Light>()).enabled = true;
         assistant.GetComponent<Renderer>().material = assistantSpeakingMat;
 
         hasPerformedActionOnObject = true;
+
+        if (objectPerformingActionOn != null)
+        {
+            setFloatingTextActive(false);
+        }
+        objectPerformingActionOn = gameObjectHit;
+        floatingText = gameObjectHit.transform.Find("FloatingText").gameObject;
+        setFloatingTextActive(true);
+
     }
 }

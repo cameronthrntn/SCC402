@@ -15,8 +15,8 @@ public class BobUpAndDown : MonoBehaviour {
 
 	void Update()
 	{
-		transform.position = new Vector3(transform.position.x,
-			originalY + (float)Math.Sin(Time.time) * floatStrength,
-			transform.position.z);
+//		transform.position = new Vector3(transform.position.x,
+//			originalY + (float)Math.Sin(Time.time) * floatStrength,
+//			transform.position.z);
 	}
 }

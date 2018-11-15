@@ -114,9 +114,12 @@ public class RayCast : MonoBehaviour {
 
     private void gazeLeftObject()
     {
-        if (objectPerformingActionOn == null)
-        {
+        if (objectPerformingActionOn == null) {
             setFloatingTextActive(false);
+        }
+
+        if (hasPerformedActionOnObject) {
+            clickButton(); //Click button before exit to undo any state changes.
         }
 
         timeGazing = 0;
@@ -124,24 +127,39 @@ public class RayCast : MonoBehaviour {
         radialProgressBarFill.fillAmount = 0;
     }
 
+    private void clickButton() { //Clicks a button, if the gameObject has one.
+        if (gameObjectHit != null) {
+            Button btn = gameObjectHit.GetComponent<Button>();
+            if (btn != null)
+            {
+                btn.onClick.Invoke();
+            }
+        }
+    }
+
     private void performAction() {
         AudioSource hotspotAudio = gameObjectHit.GetComponent<AudioSource>();
 
-        assistantAudioSource.clip = hotspotAudio.clip;
-        assistantAudioSource.Play();
-
-        // ((Light)assistant.GetComponent<Light>()).enabled = true;
-        assistant.GetComponent<Renderer>().material = assistantSpeakingMat;
-
-        hasPerformedActionOnObject = true;
-
-        if (objectPerformingActionOn != null)
-        {
-            setFloatingTextActive(false);
+        if (hotspotAudio != null) {
+            assistantAudioSource.clip = hotspotAudio.clip;
+            assistantAudioSource.Play();
         }
-        objectPerformingActionOn = gameObjectHit;
-        floatingText = gameObjectHit.transform.Find("FloatingText").gameObject;
-        setFloatingTextActive(true);
+        else {
+            clickButton();
+        }
 
+            // ((Light)assistant.GetComponent<Light>()).enabled = true;
+            assistant.GetComponent<Renderer>().material = assistantSpeakingMat;
+
+            hasPerformedActionOnObject = true;
+
+            if (objectPerformingActionOn != null)
+            {
+                setFloatingTextActive(false);
+            }
+            objectPerformingActionOn = gameObjectHit;
+            floatingText = gameObjectHit.transform.Find("FloatingText").gameObject;
+            setFloatingTextActive(true);
+        
     }
 }

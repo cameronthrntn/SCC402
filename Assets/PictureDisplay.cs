@@ -7,7 +7,7 @@ public class PictureDisplay : MonoBehaviour {
 
     public GameObject hotImage;         //The image GameObject to manipulate.
     public GameObject ARCamera;         //The AR's camera.
-    public Button btn;                  //The button that triggers actions on the camera. It's probably on a hot spot.
+    public Button btn;                  //The button that triggers actions on the camera. (It's probably on a hot spot.)
 
     
     public float objectScale = 1.0f;

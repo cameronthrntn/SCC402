@@ -12,7 +12,7 @@ public class PictureDisplay : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        //hotImage.SetActive(false);
+        hotImage.SetActive(false);
 
         if (btn != null) {
             btn.onClick.AddListener(click);

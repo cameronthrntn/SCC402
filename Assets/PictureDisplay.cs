@@ -6,11 +6,13 @@ using UnityEngine.UI;
 public class PictureDisplay : MonoBehaviour {
 
     public GameObject hotImage;
+    public GameObject ARCamera;
     public Button btn; 
+
 
 	// Use this for initialization
 	void Start () {
-        hotImage.SetActive(false);
+        //hotImage.SetActive(false);
 
         if (btn != null) {
             btn.onClick.AddListener(click);
@@ -19,7 +21,10 @@ public class PictureDisplay : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (ARCamera != null) {
+            //hotImage.transform.LookAt(ARCamera.transform);
+            hotImage.transform.rotation = ARCamera.transform.rotation;
+        }
 	}
 
     private void click() {

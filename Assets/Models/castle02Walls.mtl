@@ -10,9 +10,9 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd C:\Users\shubwub\Pictures\402\mirror.png
+map_Kd C:\Users\shubwub\Downloads\photos_2015_09_18_fst_728xnrmkpta.jpg
 
-newmtl Material_photos_2015_09_18_fst_728xnrmkpta.jpg
+newmtl Material_mirror.png
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
@@ -21,7 +21,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd C:\Users\shubwub\Downloads\photos_2015_09_18_fst_728xnrmkpta.jpg
+map_Kd C:\Users\shubwub\Pictures\402\mirror.png
 
 newmtl material.001
 Ns 96.078431

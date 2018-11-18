@@ -43,6 +43,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1899373689029998
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4511997332654580}
+  - component: {fileID: 33003119617748532}
+  - component: {fileID: 23848439269041080}
+  m_Layer: 0
+  m_Name: Plane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1989663656743566
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,9 +89,23 @@ Transform:
   m_Children:
   - {fileID: 4802903339245000}
   - {fileID: 4604985257115348}
+  - {fileID: 4511997332654580}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4511997332654580
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899373689029998}
+  m_LocalRotation: {x: 0.67884797, y: 0.099491216, z: -0.05225141, w: 0.72562855}
+  m_LocalPosition: {x: 24.332132, y: 10.0775, z: -4.76635}
+  m_LocalScale: {x: 1.9763653, y: 2.5000002, z: 0.24498364}
+  m_Children: []
+  m_Father: {fileID: 4356756691396544}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 84.61101, y: 51.446003, z: 39.113003}
 --- !u!4 &4604985257115348
 Transform:
   m_ObjectHideFlags: 1
@@ -82,7 +113,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1304096494347512}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4356756691396544}
@@ -95,12 +126,47 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1989663656743566}
   m_LocalRotation: {x: -0, y: 0.102182105, z: -0, w: 0.9947657}
-  m_LocalPosition: {x: 4.3999996, y: 0, z: -6}
+  m_LocalPosition: {x: 4.3999996, y: 0, z: 0}
   m_LocalScale: {x: 74.70711, y: 0.01, z: 101.94118}
   m_Children: []
   m_Father: {fileID: 4356756691396544}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23848439269041080
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899373689029998}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: a1983dd47030ab848b3e9a145fad8d79, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!23 &23940358257366040
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -153,7 +219,7 @@ MeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: 53a3e5a106df9f84e8661d20caf9d6bd, type: 2}
   - {fileID: 2100000, guid: 9160de1b8db513540a94ddace8aa3470, type: 2}
-  - {fileID: 2100000, guid: 256b2b2c817581841b55df7167d24659, type: 2}
+  - {fileID: 2100000, guid: f1a4cc7ba5bb0be4882c6877b1aa1f44, type: 2}
   - {fileID: 2100000, guid: baa4a421e6253dd45b1d081d262cce99, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -174,6 +240,13 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!33 &33003119617748532
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899373689029998}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33046305621713726
 MeshFilter:
   m_ObjectHideFlags: 1

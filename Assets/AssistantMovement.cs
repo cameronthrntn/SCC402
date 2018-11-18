@@ -6,8 +6,8 @@ public class AssistantMovement : MonoBehaviour
 	public float smoothTime = 0.3F;
 	private Vector3 velocity = Vector3.zero;
 
-	private int xOffset = 8;
-	private int yOffset = 5;
+	private int xOffset = 5;
+	private int yOffset = 3;
 	private int zOffset = 15;
 
 	void Update()

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f4489ba8066beb549b0515b4061ee72e
+guid: 350341d04eb85324aa9d072d5efd7e49
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -7,16 +7,36 @@ ModelImporter:
     100002: default
     400000: //RootNode
     400002: default
-    2100000: defaultMat
+    2100000: material.001
+    2100002: material.001_NONE
+    2100004: Material
+    2100006: Material_photos_2015_09_18_fst_728xnrmkpta.jpg
+    2100008: defaultMat
     2300000: default
     3300000: default
     4300000: default
+    2186277476908879412: ImportLogs
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: defaultMat
-    second: {fileID: 2100000, guid: 63bcc659cbb41e642af77a87689a2e72, type: 2}
+      name: Material
+    second: {fileID: 2100000, guid: 256b2b2c817581841b55df7167d24659, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_photos_2015_09_18_fst_728xnrmkpta.jpg
+    second: {fileID: 2100000, guid: baa4a421e6253dd45b1d081d262cce99, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material.001
+    second: {fileID: 2100000, guid: 53a3e5a106df9f84e8661d20caf9d6bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material.001_NONE
+    second: {fileID: 2100000, guid: 9160de1b8db513540a94ddace8aa3470, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -88,7 +108,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

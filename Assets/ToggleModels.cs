@@ -7,14 +7,26 @@ public class ToggleModels : MonoBehaviour
 	public GameObject monumentPartial;
 	public GameObject monumentDestroyed;
 	public GameObject monumentWireframe;
+	public GameObject monumentWireframePartial;
 	
 	public void toggleWireframe()
 	{
-		bool isWireframeActive = monumentWireframe.activeSelf;
-		monumentFull.SetActive(isWireframeActive);
-		monumentPartial.SetActive(false);
-		monumentDestroyed.SetActive(false);
-		monumentWireframe.SetActive(!isWireframeActive);
+
+		if (monumentFull.activeSelf || monumentWireframe.activeSelf)
+		{
+			monumentFull.SetActive(!monumentFull.activeSelf);
+			monumentWireframe.SetActive(!monumentWireframe.activeSelf);
+		}
+		else if (monumentPartial.activeSelf || monumentWireframePartial.activeSelf)
+		{
+			monumentPartial.SetActive(!monumentPartial.activeSelf);
+			monumentWireframePartial.SetActive(!monumentWireframePartial.activeSelf);
+		}
+		else if (monumentDestroyed.activeSelf) //  || monumentWireframeDestroyed.activeSelf
+		{
+			monumentDestroyed.SetActive(!monumentDestroyed.activeSelf);
+//			monumentWireframeDestroyed.SetActive(!monumentWireframeDestroyed.activeSelf);
+		}
 	}
 
 	public void setMonumentFull()
@@ -23,6 +35,7 @@ public class ToggleModels : MonoBehaviour
 		monumentPartial.SetActive(false);
 		monumentDestroyed.SetActive(false);
 		monumentWireframe.SetActive(false);
+		monumentWireframePartial.SetActive(false);
 	}
 
 	public void setMonumentPartial()
@@ -31,6 +44,7 @@ public class ToggleModels : MonoBehaviour
 		monumentPartial.SetActive(true);
 		monumentDestroyed.SetActive(false);
 		monumentWireframe.SetActive(false);
+		monumentWireframePartial.SetActive(false);
 	}
 
 	public void setMonumentDestroyed()
@@ -39,5 +53,6 @@ public class ToggleModels : MonoBehaviour
 		monumentPartial.SetActive(false);
 		monumentDestroyed.SetActive(true);
 		monumentWireframe.SetActive(false);
+		monumentWireframePartial.SetActive(false);
 	}
 }

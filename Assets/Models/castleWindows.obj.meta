@@ -18,17 +18,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material
-    second: {fileID: 2100000, guid: 63bcc659cbb41e642af77a87689a2e72, type: 2}
+    second: {fileID: 2100000, guid: f1a4cc7ba5bb0be4882c6877b1aa1f44, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: material.001
-    second: {fileID: 2100000, guid: 7a6ee7b20d71b2d4b95da4fdff2860aa, type: 2}
+    second: {fileID: 2100000, guid: 63bcc659cbb41e642af77a87689a2e72, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: material.001_photos_2015_09_18_fst_728xnrmkpta.jpg
-    second: {fileID: 2100000, guid: 432e1337908ce994384049e45375a6b5, type: 2}
+    second: {fileID: 2100000, guid: 63bcc659cbb41e642af77a87689a2e72, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

@@ -8,6 +8,9 @@ public class ToggleModels : MonoBehaviour
 	private GameObject monumentDestroyed;
 	private GameObject monumentWireframe;
 	private GameObject monumentWireframePartial;
+	private GameObject monumentWireframeDestroyed;
+
+	private float transparency = 0.7f;
 
 	public void Start()
 	{
@@ -20,6 +23,7 @@ public class ToggleModels : MonoBehaviour
 
 		monumentWireframe = FindObject(castleWireframes, "wireframeFull");
 		monumentWireframePartial = FindObject(castleWireframes, "wireframePartial");
+		monumentWireframeDestroyed = FindObject(castleWireframes, "wireframeDestroyed");
 	}
 
 	public static GameObject FindObject(GameObject parent, string name)
@@ -35,21 +39,66 @@ public class ToggleModels : MonoBehaviour
 
 	public void toggleWireframe()
 	{
+		GameObject modelToSwap = null;
+		GameObject wireframeToSwap = null;
 
 		if (monumentFull.activeSelf || monumentWireframe.activeSelf)
 		{
-			monumentFull.SetActive(!monumentFull.activeSelf);
-			monumentWireframe.SetActive(!monumentWireframe.activeSelf);
+			modelToSwap = monumentFull;
+			wireframeToSwap = monumentWireframe;
 		}
 		else if (monumentPartial.activeSelf || monumentWireframePartial.activeSelf)
 		{
-			monumentPartial.SetActive(!monumentPartial.activeSelf);
-			monumentWireframePartial.SetActive(!monumentWireframePartial.activeSelf);
+			modelToSwap = monumentPartial;
+			wireframeToSwap = monumentWireframePartial;
 		}
-		else if (monumentDestroyed.activeSelf) //  || monumentWireframeDestroyed.activeSelf
+		else if (monumentDestroyed.activeSelf || monumentWireframeDestroyed.activeSelf)
 		{
-			monumentDestroyed.SetActive(!monumentDestroyed.activeSelf);
-//			monumentWireframeDestroyed.SetActive(!monumentWireframeDestroyed.activeSelf);
+			modelToSwap = monumentDestroyed;
+			wireframeToSwap = monumentWireframeDestroyed;
+		}
+
+		if (modelToSwap == null || wireframeToSwap == null)
+		{
+			Debug.LogError("Model or Wireframe are null");
+			return;
+		}
+
+		setModelActive(modelToSwap, wireframeToSwap.activeSelf);
+		setWireframeActive(wireframeToSwap, !wireframeToSwap.activeSelf);
+
+	}
+
+	private void setModelActive(GameObject model, bool active)
+	{
+		// To disable and enable the model
+//		model.SetActive(active);
+
+		// To set model to be semi-transparent
+		// 0 means opaque
+		setModelTransparency(model, active == true ? 0 : transparency);
+	}
+
+	private void setWireframeActive(GameObject wireframe, bool active)
+	{
+		wireframe.SetActive(active);
+	}
+
+	/**
+	 * Assuming @param model is the castle model container
+	 * Gets the actual object with the Mesh Renderer component (which is called 'default' in the children of each castle model)
+	 */
+	private void setModelTransparency(GameObject model, float transparency)
+	{
+		GameObject modelMeshObject = FindObject(model, "default");
+
+		foreach (Material material in modelMeshObject.GetComponent<Renderer>().materials)
+		{
+			if (!material.HasProperty("_Transparency"))
+			{
+				continue;
+			}
+			material.SetFloat("_Transparency", transparency);
 		}
 	}
 
@@ -60,6 +109,8 @@ public class ToggleModels : MonoBehaviour
 		monumentDestroyed.SetActive(false);
 		monumentWireframe.SetActive(false);
 		monumentWireframePartial.SetActive(false);
+
+		setModelTransparency(monumentFull, 0);
 	}
 
 	public void setMonumentPartial()
@@ -69,6 +120,8 @@ public class ToggleModels : MonoBehaviour
 		monumentDestroyed.SetActive(false);
 		monumentWireframe.SetActive(false);
 		monumentWireframePartial.SetActive(false);
+
+		setModelTransparency(monumentPartial, 0);
 	}
 
 	public void setMonumentDestroyed()
@@ -78,5 +131,7 @@ public class ToggleModels : MonoBehaviour
 		monumentDestroyed.SetActive(true);
 		monumentWireframe.SetActive(false);
 		monumentWireframePartial.SetActive(false);
+
+		setModelTransparency(monumentDestroyed, 0);
 	}
 }

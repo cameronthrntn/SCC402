@@ -25,6 +25,11 @@ public class RayCast : MonoBehaviour {
 
     private GameObject floatingText;
 
+    private bool floatingTextGrowing = false;
+    private float floatingTextScale = 0.02f;
+    private float floatingTextRateOfGrowth = 0.1f;
+    private float floatingTextGrowth = 0f;
+
     // Use this for initialization
     void Start () {
         camera = GetComponent<Camera>();
@@ -48,6 +53,7 @@ public class RayCast : MonoBehaviour {
             floatingText.transform.LookAt(camera.transform);
         }
 
+        scaleFloatingtext();
 
         if (objectPerformingActionOn != null && !assistantAudioSource.isPlaying) {
             // ((Light)assistant.GetComponent<Light>()).enabled = false;
@@ -55,6 +61,48 @@ public class RayCast : MonoBehaviour {
             objectPerformingActionOn = null;
             setFloatingTextActive(false);
         }
+
+    }
+
+    private void scaleFloatingtext()
+    {
+        if (floatingText == null)
+        {
+            return;
+        }
+
+        lock (this)
+        {
+            if (floatingTextGrowing)
+            {
+                if (floatingTextGrowth >= 1)
+                {
+                    floatingTextGrowth = 1;
+                }
+                else
+                {
+                    floatingTextGrowth += floatingTextRateOfGrowth;
+                }
+            }
+            else
+            {
+                if (floatingTextGrowth <= 0)
+                {
+                    floatingTextGrowth = 0;
+                }
+                else
+                {
+                    floatingTextGrowth -= floatingTextRateOfGrowth;
+                }
+            }
+        }
+
+        Plane plane = new Plane(Camera.main.transform.forward, Camera.main.transform.position);
+        float dist = plane.GetDistanceToPoint(floatingText.transform.position);
+        floatingText.transform.localScale = new Vector3(1, 1, 1) * dist * floatingTextScale * floatingTextGrowth;
+
+        Debug.LogError("402:   " + floatingText.transform.localScale + "  -  " + floatingTextGrowth);
+
 
     }
 
@@ -92,10 +140,14 @@ public class RayCast : MonoBehaviour {
 
     private void setFloatingTextActive(bool active)
     {
-        if (floatingText != null)
+        if (floatingText == null)
         {
-            floatingText.SetActive(active);
+            return;
         }
+
+//        floatingText.SetActive(active);
+
+        floatingTextGrowing = active;
     }
 
     private void startGazeAt(GameObject gameObject) {
@@ -103,8 +155,7 @@ public class RayCast : MonoBehaviour {
 
         if (objectPerformingActionOn == null)
         {
-            floatingText = gameObject.transform.Find("FloatingText").gameObject;
-            setFloatingTextActive(true);
+            findFloatingTextIn(gameObject);
         }
 
         gameObjectHit = gameObject;
@@ -158,8 +209,13 @@ public class RayCast : MonoBehaviour {
                 setFloatingTextActive(false);
             }
             objectPerformingActionOn = gameObjectHit;
-            floatingText = gameObjectHit.transform.Find("FloatingText").gameObject;
-            setFloatingTextActive(true);
-        
+            findFloatingTextIn(gameObjectHit);
+    }
+
+    private void findFloatingTextIn(GameObject gameObject)
+    {
+        floatingText = gameObject.transform.Find("FloatingText").gameObject;
+        setFloatingTextActive(true);
+        floatingTextGrowth = 0;
     }
 }

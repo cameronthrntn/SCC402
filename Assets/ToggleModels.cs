@@ -109,6 +109,7 @@ public class ToggleModels : MonoBehaviour
 		monumentDestroyed.SetActive(false);
 		monumentWireframe.SetActive(false);
 		monumentWireframePartial.SetActive(false);
+		monumentWireframeDestroyed.SetActive(false);
 
 		setModelTransparency(monumentFull, 0);
 	}
@@ -120,6 +121,7 @@ public class ToggleModels : MonoBehaviour
 		monumentDestroyed.SetActive(false);
 		monumentWireframe.SetActive(false);
 		monumentWireframePartial.SetActive(false);
+		monumentWireframeDestroyed.SetActive(false);
 
 		setModelTransparency(monumentPartial, 0);
 	}
@@ -131,6 +133,7 @@ public class ToggleModels : MonoBehaviour
 		monumentDestroyed.SetActive(true);
 		monumentWireframe.SetActive(false);
 		monumentWireframePartial.SetActive(false);
+		monumentWireframeDestroyed.SetActive(false);
 
 		setModelTransparency(monumentDestroyed, 0);
 	}

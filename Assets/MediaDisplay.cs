@@ -13,6 +13,9 @@ public class MediaDisplay : MonoBehaviour
     private float growth = 0f;              //The current growth
     private bool growing = false;           //If the picture is growing or shrinking.
 
+    // Makes the media scale smaller. Without this they're 70m+ in size
+    public float reductionMult = 0.02f;
+
     // Use this for initialization
     void Start()
     {
@@ -57,7 +60,7 @@ public class MediaDisplay : MonoBehaviour
 
         Plane plane = new Plane(ARCamera.transform.forward, ARCamera.transform.position);
         float dist = plane.GetDistanceToPoint(transform.position);
-        transform.localScale = initialScale * dist/50 * growth;
+        transform.localScale = initialScale * dist*reductionMult * growth;
     }
 
     public void startAction()

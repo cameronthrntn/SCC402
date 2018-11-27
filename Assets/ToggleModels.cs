@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class ToggleModels : MonoBehaviour
 {
@@ -11,6 +12,46 @@ public class ToggleModels : MonoBehaviour
 	private GameObject monumentWireframeDestroyed;
 
 	private float transparency = 0.7f;
+
+
+	private void OnEnable()
+	{
+		ReceiveResult.OnVoiceEvent += EventAction;
+	}
+
+	private void OnDisable()
+	{
+		ReceiveResult.OnVoiceEvent -= EventAction;
+	}
+
+	private void EventAction(string action)
+	{
+        switch (action)
+        {
+            case ReceiveResult.EVENT_FULL_CASTLE:
+	            setMonumentFull();
+                break;
+            case ReceiveResult.EVENT_PARTIAL_CASTLE:
+	            setMonumentPartial();
+                break;
+            case ReceiveResult.EVENT_DESTROYED_CASTLE:
+	            setMonumentDestroyed();
+                break;
+            case ReceiveResult.EVENT_FULL_WIREFRAME:
+	            setMonumentFull();
+				toggleWireframe();
+                break;
+            case ReceiveResult.EVENT_PARTIAL_WIREFRAME:
+	            setMonumentPartial();
+	            toggleWireframe();
+                break;
+            case ReceiveResult.EVENT_DESTROYED_WIREFRAME:
+	            setMonumentDestroyed();
+	            toggleWireframe();
+                break;
+        }
+	}
+
 
 	public void Start()
 	{

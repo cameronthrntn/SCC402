@@ -27,7 +27,7 @@ public class RayCast : MonoBehaviour {
     private GameObject floatingText;
 
     private bool floatingTextGrowing = false;
-    private float floatingTextScale = 0.02f;
+    private float floatingTextScale = 0.1f;
     private float floatingTextRateOfGrowth = 0.1f;
     private float floatingTextGrowth = 0f;
 

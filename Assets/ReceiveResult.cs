@@ -41,9 +41,6 @@ public class ReceiveResult : MonoBehaviour
         phraseResultEvents.Add(CMD_FULL_WIREFRAME, EVENT_FULL_WIREFRAME);
         phraseResultEvents.Add(CMD_PARTIAL_WIREFRAME, EVENT_PARTIAL_WIREFRAME);
         phraseResultEvents.Add(CMD_DESTROYED_WIREFRAME, EVENT_DESTROYED_WIREFRAME);
-
-
-
     }
 
 
@@ -53,9 +50,7 @@ public class ReceiveResult : MonoBehaviour
 
     void onActivityResult(string recognizedText)
     {
-
         Debug.LogError("recognizedText:  " + recognizedText);
-
 
         char[] delimiterChars = { '~' };
         string[] result = recognizedText.Split(delimiterChars);
@@ -74,44 +69,19 @@ public class ReceiveResult : MonoBehaviour
             if (eventString != null && !eventString.Equals(""))
             {
                 OnVoiceEvent(eventString);
+                return;
             }
         }
 
-
-//        switch (result[0])
-//        {
-//            case CMD_SCALE_UP:
-//                monumentContainer.transform.localScale += new Vector3(scale, scale, scale);
-//                break;
-//            case CMD_SCALE_DOWN:
-//                monumentContainer.transform.localScale += new Vector3(-scale, -scale, -scale);
-//                break;
-//            case CMD_FULL_CASTLE:
-//                OnVoiceEvent(EVENT_FULL_CASTLE);
-//                break;
-//            case CMD_PARTIAL_CASTLE:
-//
-//                break;
-//            case CMD_DESTROYED_CASTLE:
-//
-//                break;
-//            case CMD_FULL_WIREFRAME:
-//
-//                break;
-//            case CMD_PARTIAL_WIREFRAME:
-//
-//                break;
-//            case CMD_DESTROYED_WIREFRAME:
-//
-//                break;
-//        }
-
-
+        switch (capturedPhrase)
+        {
+            case CMD_SCALE_UP:
+                monumentContainer.transform.localScale += new Vector3(scale, scale, scale);
+                break;
+            case CMD_SCALE_DOWN:
+                monumentContainer.transform.localScale += new Vector3(-scale, -scale, -scale);
+                break;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

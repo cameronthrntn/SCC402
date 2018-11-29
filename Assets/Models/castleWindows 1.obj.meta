@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 29ac7dcb83fc78c4aaae6644070ee30a
+guid: ef9a95e8ac585e644bbe5f3a9d0425c6
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -8,7 +8,8 @@ ModelImporter:
     400000: //RootNode
     400002: default
     2100000: material.001
-    2100002: defaultMat
+    2100002: material.001_photos_2015_09_18_fst_728xnrmkpta.jpg
+    2100004: Material
     2300000: default
     3300000: default
     4300000: default
@@ -16,8 +17,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: f1a4cc7ba5bb0be4882c6877b1aa1f44, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: material.001
-    second: {fileID: 2100000, guid: fff88261f71f44943acbfabf1f2a733b, type: 2}
+    second: {fileID: 2100000, guid: f1a4cc7ba5bb0be4882c6877b1aa1f44, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material.001_photos_2015_09_18_fst_728xnrmkpta.jpg
+    second: {fileID: 2100000, guid: 63bcc659cbb41e642af77a87689a2e72, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: dae3631a918cb1b418714d52013b026a
+guid: 0d0742c2bd701d44097f6f3cb7a138bb
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -9,17 +9,11 @@ ModelImporter:
     400002: default
     2100000: material.001
     2100002: material.001_photos_2015_09_18_fst_728xnrmkpta.jpg
-    2100004: defaultMat
     2300000: default
     3300000: default
     4300000: default
     2186277476908879412: ImportLogs
   externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: defaultMat
-    second: {fileID: 2100000, guid: 63bcc659cbb41e642af77a87689a2e72, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

@@ -22,7 +22,7 @@ MonoBehaviour:
     cameraDirection: 0
     mirrorVideoBackground: 0
     version: 7.5.26
-    eulaAcceptedVersions: '{"Values":["7.2","7.5"]}'
+    eulaAcceptedVersions: '{"Values":["7.5","7.2"]}'
   digitalEyewear:
     cameraOffset: 0.06
     distortionRenderingLayer: 31
@@ -55,7 +55,7 @@ MonoBehaviour:
     autoInitTracker: 1
     autoStartTracker: 1
     trackingMode: 1
-    posePrediction: 0
+    posePrediction: 1
     modelCorrectionMode: 0
     modelTransformEnabled: 0
     modelTransform: {x: 0, y: 0.1, z: -0.1}

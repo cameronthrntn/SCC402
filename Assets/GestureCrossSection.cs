@@ -17,7 +17,7 @@ public class GestureCrossSection : MonoBehaviour
 
 	void Start ()
 	{
-		target = GameObject.Find("ImageTarget");
+		target = GameObject.Find("ObjectTarget");
 		camera = transform.gameObject.GetComponent<Camera>();
 	}
 

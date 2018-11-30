@@ -26,6 +26,7 @@ public class RayCast : MonoBehaviour {
     private AudioSource assistantAudioSource;
 
     public GameObject floatingText;
+    public Image floatTextBack;
 
     private bool floatingTextGrowing = false;
     private float floatingTextScale = 0.1f;
@@ -132,8 +133,10 @@ public class RayCast : MonoBehaviour {
         }
 
         radialProgressBarFill.fillAmount = progress;
+        floatTextBack.fillAmount = progress;
 
-        
+
+
         if (!hasPerformedActionOnObject && getTimeMillis() - timeGazing >= timeGazingTriggerMillis) {
             performAction();
         }
@@ -216,6 +219,7 @@ public class RayCast : MonoBehaviour {
         if (mediaDisplay != null)
         {
             mediaDisplay.startAction();
+            setFloatingTextActive(false);
         }
 
         if (objectPerformingActionOn != null)
@@ -253,6 +257,7 @@ public class RayCast : MonoBehaviour {
         //floatingText = gameObject.transform.Find("FloatingText").gameObject;
         setFloatingTextActive(true);
         Debug.Log("true");
+        floatTextBack.fillAmount = 0;
         floatingTextGrowth = 0;
         HotspotName hotspotName = gameObject.GetComponent<HotspotName>();
         hotSpotText.text = hotspotName.name;

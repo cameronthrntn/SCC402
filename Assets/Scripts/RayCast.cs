@@ -167,7 +167,7 @@ public class RayCast : MonoBehaviour
 
         if (objectPerformingActionOn == null || newObject == null) {
             setFloatingTextActive(false);
-            Debug.Log("False from line 173");
+            //Debug.Log("False from line 173");
         }
 
         if (hasPerformedActionOnObject && prevGameObjectHit != null && newObject != null) {

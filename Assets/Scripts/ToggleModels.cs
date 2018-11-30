@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class ToggleModels : MonoBehaviour
 {
@@ -13,8 +14,9 @@ public class ToggleModels : MonoBehaviour
 
 	private float transparency = 0.7f;
 
+    public Scrollbar mainSlider;
 
-	private void OnEnable()
+    private void OnEnable()
 	{
 		ReceiveResult.OnVoiceEvent += EventAction;
 	}
@@ -178,4 +180,21 @@ public class ToggleModels : MonoBehaviour
 
 		setModelTransparency(monumentDestroyed, 0);
 	}
+
+
+    public void timeLineChange() {
+        float value = mainSlider.value;
+
+        if(value < 0.25) {
+            //Debug.Log("Destroyed");
+            setMonumentDestroyed();
+        } else if(value >= 0.75) {
+            //Debug.Log("Full");
+            setMonumentFull();
+        } else {
+            //Debug.Log("Partial");
+            setMonumentPartial();
+        }
+    }
+
 }

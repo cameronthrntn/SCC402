@@ -13,7 +13,7 @@ public class GestureCrossSection : MonoBehaviour
 	private float beginDistPoint = 0;
 
 	// Radius of castle + a little bit extra to avoid clipping on edges of castle
-	private float targetRadius = 18;
+	private float targetRadius = 17;
 
 	void Start ()
 	{
@@ -36,26 +36,25 @@ public class GestureCrossSection : MonoBehaviour
 			beginDistPoint = dist;
 		}
 
-		float clipNear = dist + (beginDistPoint - dist);
+		float clipNear = dist + (beginDistPoint - dist)*4;
 
-		if (clipNear > dist + targetRadius)
-		{
-			clipNear = dist + targetRadius;
-			beginDistPoint = dist + targetRadius;
+//		if (clipNear > dist + targetRadius)
+//		{
+//			clipNear = dist + targetRadius;
+//			beginDistPoint = beginDistPoint - targetRadius;
 //			Debug.LogError("MAX");
-		}
-		if (clipNear < dist - targetRadius)
-		{
-			clipNear = dist - targetRadius;
-			beginDistPoint = dist - targetRadius;
+//		}
+//		else if (clipNear < dist - targetRadius)
+//		{
+//			clipNear = dist - targetRadius;
+//			beginDistPoint = beginDistPoint + targetRadius;
 //			Debug.LogError("MIN");
-		}
+//		}
 
 		clipNear = clipNear < 0.01 ? 0.01f : clipNear;
 //		beginDistPoint = beginDistPoint < 0 ? 0 : beginDistPoint;
 
 		camera.nearClipPlane = clipNear;
-
 	}
 
 	public bool isEnabled()

@@ -183,17 +183,19 @@ public class ToggleModels : MonoBehaviour
 
 
     public void timeLineChange() {
-        float value = mainSlider.value;
+        if (mainSlider != null) { //If for some reason this function is called without the slider being defined.
+            float value = mainSlider.value;
 
-        if(value < 0.25) {
-            //Debug.Log("Destroyed");
-            setMonumentDestroyed();
-        } else if(value >= 0.75) {
-            //Debug.Log("Full");
-            setMonumentFull();
-        } else {
-            //Debug.Log("Partial");
-            setMonumentPartial();
+            if (value < 0.25) {
+                //Debug.Log("Destroyed");
+                setMonumentDestroyed();
+            } else if (value >= 0.75) {
+                //Debug.Log("Full");
+                setMonumentFull();
+            } else {
+                //Debug.Log("Partial");
+                setMonumentPartial();
+            }
         }
     }
 

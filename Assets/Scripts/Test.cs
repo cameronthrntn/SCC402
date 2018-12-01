@@ -7,12 +7,16 @@ public class Test : MonoBehaviour
 {
 
     public Button btn;
+    public Button btnIcon; //Does the same thing as btn, but it's the other button.
 
     // Use this for initialization
     void Start()
     {
         if (btn != null) {
             btn.onClick.AddListener(TaskOnClick);
+        }
+        if (btnIcon != null) {
+            btnIcon.onClick.AddListener(TaskOnClick);
         }
     }
 

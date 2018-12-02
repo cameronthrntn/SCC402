@@ -6,6 +6,22 @@ using UnityEngine.UI;
 public class RayCast : MonoBehaviour
 {
 
+    public delegate void MediaEvent(int eventType, string emoji);
+    public static event MediaEvent OnMediaEvent;
+
+    
+    
+    public const int MEDIA_EVENT_PLAYING = 1;
+    public const int MEDIA_EVENT_PAUSED = 2;
+    public const int MEDIA_EVENT_STOPPED = 3;
+    public const int MEDIA_EVENT_PREV = 4;
+    public const int MEDIA_EVENT_NEXT = 5;
+    
+    
+    
+    
+    
+    
     private Camera camera;
     private RaycastHit hit;
 
@@ -206,6 +222,11 @@ public class RayCast : MonoBehaviour
         hasPerformedActionOnObject = true;
         setAssistantPlaying(gameObjectHit, true);
 
+        if (OnMediaEvent != null)
+        {
+            OnMediaEvent(MEDIA_EVENT_PLAYING, AssistantEmojis.smile);
+        }
+        
         MediaDisplay mediaDisplay = gameObjectHit.GetComponentInChildren<MediaDisplay>();
         if (mediaDisplay != null) {
             mediaDisplay.startAction();

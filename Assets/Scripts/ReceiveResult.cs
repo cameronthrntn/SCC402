@@ -60,7 +60,7 @@ public class ReceiveResult : MonoBehaviour
         //You can get the number of results with result.Length
         //And access a particular result with result[i] where i is an int
         //I have just assigned the best result to UI text
-        GameObject.Find("SpeechRecog").GetComponent<Text>().text = capturedPhrase;
+//        GameObject.Find("SpeechRecog").GetComponent<Text>().text = capturedPhrase;
 
         if (OnVoiceEvent != null)
         {

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RayCast : MonoBehaviour {
+public class RayCast : MonoBehaviour
+{
 
     private Camera camera;
     private RaycastHit hit;
@@ -21,10 +22,12 @@ public class RayCast : MonoBehaviour {
     public GameObject assistant;
     public Material assistantMat;
     public Material assistantSpeakingMat;
-    
+    public Text hotSpotText;
+
     private AudioSource assistantAudioSource;
 
-    private GameObject floatingText;
+    public GameObject floatingText;
+    public Image floatTextBack;
 
     private bool floatingTextGrowing = false;
     private float floatingTextScale = 0.1f;
@@ -32,26 +35,27 @@ public class RayCast : MonoBehaviour {
     private float floatingTextGrowth = 0f;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         camera = GetComponent<Camera>();
         assistantAudioSource = assistant.GetComponent<AudioSource>();
-	}
+        floatingTextScale = floatingText.transform.localScale.x;
+    }
 
     // Update is called once per frame
     void Update()
     {
         Ray ray = camera.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
         RaycastHit hit;
-
         if (Physics.Raycast(ray, out hit)) {
             rayHit(hit);
+
         } else {
             gazeLeftObject(null);
         }
 
-        if (floatingText != null)
-        {
-            floatingText.transform.LookAt(camera.transform);
+        if (floatingText != null) {
+            //floatingText.transform.LookAt(camera.transform);
         }
 
         scaleFloatingtext();
@@ -60,39 +64,29 @@ public class RayCast : MonoBehaviour {
             // ((Light)assistant.GetComponent<Light>()).enabled = false;
             assistant.GetComponent<Renderer>().material = assistantMat;
             objectPerformingActionOn = null;
-            setFloatingTextActive(false);
+            //setFloatingTextActive(false);
+            //Debug.Log("False from line 66");
         }
 
     }
 
     private void scaleFloatingtext()
     {
-        if (floatingText == null)
-        {
+        if (floatingText == null) {
             return;
         }
 
-        lock (this)
-        {
-            if (floatingTextGrowing)
-            {
-                if (floatingTextGrowth >= 1)
-                {
+        lock (this) {
+            if (floatingTextGrowing) {
+                if (floatingTextGrowth >= 1) {
                     floatingTextGrowth = 1;
-                }
-                else
-                {
+                } else {
                     floatingTextGrowth += floatingTextRateOfGrowth;
                 }
-            }
-            else
-            {
-                if (floatingTextGrowth <= 0)
-                {
+            } else {
+                if (floatingTextGrowth <= 0) {
                     floatingTextGrowth = 0;
-                }
-                else
-                {
+                } else {
                     floatingTextGrowth -= floatingTextRateOfGrowth;
                 }
             }
@@ -100,13 +94,13 @@ public class RayCast : MonoBehaviour {
 
         Plane plane = new Plane(Camera.main.transform.forward, Camera.main.transform.position);
         float dist = plane.GetDistanceToPoint(floatingText.transform.position);
-        floatingText.transform.localScale = new Vector3(1, 1, 1) * dist * floatingTextScale * floatingTextGrowth;
+        floatingText.transform.localScale = new Vector3(1, 1, 1) * floatingTextScale * floatingTextGrowth;//* dist;
 
     }
 
-    private void rayHit(RaycastHit hit) {
+    private void rayHit(RaycastHit hit)
+    {
         GameObject objectRayHit = hit.transform.gameObject;
-
         if (gameObjectHit != objectRayHit) {
             startGazeAt(objectRayHit);
             return;
@@ -115,11 +109,13 @@ public class RayCast : MonoBehaviour {
         updateProgress();
     }
 
-    private float getTimeMillis() {
+    private float getTimeMillis()
+    {
         return Time.time * 1000;
     }
 
-    private void updateProgress() {
+    private void updateProgress()
+    {
         float progress = (getTimeMillis() - timeGazing) / timeGazingTriggerMillis;
 
         if (progress < 0) {
@@ -130,33 +126,37 @@ public class RayCast : MonoBehaviour {
         }
 
         radialProgressBarFill.fillAmount = progress;
+        floatTextBack.fillAmount = progress;
+
+
 
         if (!hasPerformedActionOnObject && getTimeMillis() - timeGazing >= timeGazingTriggerMillis) {
             performAction();
         }
+
     }
 
     private void setFloatingTextActive(bool active)
     {
-        if (floatingText == null)
-        {
+        if (floatingText == null) {
             return;
         }
 
-//        floatingText.SetActive(active);
+        //        floatingText.SetActive(active);
 
         floatingTextGrowing = active;
     }
 
-    private void startGazeAt(GameObject gameObject) {
+    private void startGazeAt(GameObject gameObject)
+    {
         gazeLeftObject(gameObject);
+        findFloatingTextIn(gameObject);
 
-        if (objectPerformingActionOn == null)
-        {
+        if (objectPerformingActionOn == null) {
             findFloatingTextIn(gameObject);
         }
 
-//        prevGameObjectHit = gameObjectHit;
+        //        prevGameObjectHit = gameObjectHit;
         gameObjectHit = gameObject;
         timeGazing = getTimeMillis();
         hasPerformedActionOnObject = false;
@@ -164,76 +164,74 @@ public class RayCast : MonoBehaviour {
 
     private void gazeLeftObject(GameObject newObject)
     {
-        if (objectPerformingActionOn == null) {
+
+        if (objectPerformingActionOn == null || newObject == null) {
             setFloatingTextActive(false);
+            //Debug.Log("False from line 173");
         }
 
-        if (hasPerformedActionOnObject && prevGameObjectHit != null && newObject != null)
-        {
+        if (hasPerformedActionOnObject && prevGameObjectHit != null && newObject != null) {
             setAssistantPlaying(prevGameObjectHit, false);
 
             MediaDisplay mediaDisplay = prevGameObjectHit.GetComponentInChildren<MediaDisplay>();
-            if (mediaDisplay != null)
-            {
+            if (mediaDisplay != null) {
                 mediaDisplay.stopAction();
             }
             prevGameObjectHit = null;
         }
 
         timeGazing = 0;
-        if (gameObjectHit != null)
-        {
+        if (gameObjectHit != null) {
             prevGameObjectHit = gameObjectHit;
         }
         gameObjectHit = null;
         radialProgressBarFill.fillAmount = 0;
     }
 
-//    private void clickButton(GameObject gameObject) { //Clicks a button, if the gameObject has one.
-//        if (gameObject == null)
-//        {
-//            return;
-//        }
-//
-//        Button btn = gameObject.GetComponent<Button>();
-//        if (btn != null)
-//        {
-//            btn.onClick.Invoke();
-//        }
-//    }
+    //    private void clickButton(GameObject gameObject) { //Clicks a button, if the gameObject has one.
+    //        if (gameObject == null)
+    //        {
+    //            return;
+    //        }
+    //
+    //        Button btn = gameObject.GetComponent<Button>();
+    //        if (btn != null)
+    //        {
+    //            btn.onClick.Invoke();
+    //        }
+    //    }
 
     private void performAction()
     {
+        hasPerformedActionOnObject = true;
         setAssistantPlaying(gameObjectHit, true);
 
         MediaDisplay mediaDisplay = gameObjectHit.GetComponentInChildren<MediaDisplay>();
-        if (mediaDisplay != null)
-        {
+        if (mediaDisplay != null) {
             mediaDisplay.startAction();
-        }
-
-        hasPerformedActionOnObject = true;
-
-        if (objectPerformingActionOn != null)
-        {
             setFloatingTextActive(false);
         }
+
+        if (objectPerformingActionOn != null) {
+            setFloatingTextActive(false);
+            Debug.Log("False from line 225");
+        }
         objectPerformingActionOn = gameObjectHit;
-        findFloatingTextIn(gameObjectHit);
+        //findFloatingTextIn(gameObjectHit);
     }
 
     private void setAssistantPlaying(GameObject gameObject, bool play)
     {
-        if (play)
-        {
+        if (play) {
             AudioSource hotspotAudio = gameObject.GetComponent<AudioSource>();
             if (hotspotAudio != null) {
                 assistantAudioSource.clip = hotspotAudio.clip;
+                Debug.Log("Playing Audio");
                 assistantAudioSource.Play();
+                Debug.Log("Audio Stopped");
+                setFloatingTextActive(false);
             }
-        }
-        else
-        {
+        } else {
             assistantAudioSource.Stop();
         }
 
@@ -242,8 +240,12 @@ public class RayCast : MonoBehaviour {
 
     private void findFloatingTextIn(GameObject gameObject)
     {
-        floatingText = gameObject.transform.Find("FloatingText").gameObject;
+        //floatingText = gameObject.transform.Find("FloatingText").gameObject;
         setFloatingTextActive(true);
+        Debug.Log("true");
+        floatTextBack.fillAmount = 0;
         floatingTextGrowth = 0;
+        HotspotName hotspotName = gameObject.GetComponent<HotspotName>();
+        hotSpotText.text = hotspotName.name;
     }
 }

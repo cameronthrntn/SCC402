@@ -32,7 +32,10 @@ public class WireframeToggle : MonoBehaviour {
 		if (toggle.isOn)
 		{
 			GetComponentInChildren<Image>().sprite = on;
-			toggleModels.toggleWireframe();
+			if (toggleModels != null)
+			{
+				toggleModels.toggleWireframe();
+			}
 		}
 		else
 		{

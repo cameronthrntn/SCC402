@@ -29,7 +29,7 @@ public class RayCast : MonoBehaviour {
     void Start () {
         camera = GetComponent<Camera>();
         assistantAudioSource = assistant.GetComponent<AudioSource>();
-	}
+    }
 
     // Update is called once per frame
     void Update()

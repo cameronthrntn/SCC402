@@ -12,7 +12,9 @@ public class ToggleModels : MonoBehaviour
 	private GameObject monumentWireframePartial;
 	private GameObject monumentWireframeDestroyed;
 
-	private float transparency = 0.7f;
+	private const float transparency = 0.7f;
+	
+	private static float castleTexturedTransparency = 0;
 
     public Scrollbar mainSlider;
 
@@ -119,7 +121,7 @@ public class ToggleModels : MonoBehaviour
 
 		// To set model to be semi-transparent
 		// 0 means opaque
-		setModelTransparency(model, active == true ? 0 : transparency);
+		setModelTransparency(model, active == true ? castleTexturedTransparency : transparency);
 	}
 
 	private void setWireframeActive(GameObject wireframe, bool active)
@@ -127,12 +129,41 @@ public class ToggleModels : MonoBehaviour
 		wireframe.SetActive(active);
 	}
 
+	private GameObject getActiveModel()
+	{
+		if (monumentFull.activeSelf)
+		{
+			return monumentFull;
+		}
+		if (monumentPartial.activeSelf)
+		{
+			return monumentPartial;
+		}
+		if (monumentDestroyed.activeSelf)
+		{
+			return monumentDestroyed;
+		}
+
+		return null;
+	}
+
 	/**
 	 * Assuming @param model is the castle model container
 	 * Gets the actual object with the Mesh Renderer component (which is called 'default' in the children of each castle model)
 	 */
-	private void setModelTransparency(GameObject model, float transparency)
+	public void setModelTransparency(GameObject model, float transparency)
 	{
+		if (model == null)
+		{
+			model = getActiveModel();
+			castleTexturedTransparency = transparency;
+			
+			if (model == null)
+			{
+				return;
+			}
+		}
+		
 		GameObject modelMeshObject = FindObject(model, "default");
 
 		foreach (Material material in modelMeshObject.GetComponent<Renderer>().materials)
@@ -154,7 +185,7 @@ public class ToggleModels : MonoBehaviour
 		monumentWireframePartial.SetActive(false);
 		monumentWireframeDestroyed.SetActive(false);
 
-		setModelTransparency(monumentFull, 0);
+		setModelTransparency(monumentFull, castleTexturedTransparency);
 	}
 
 	public void setMonumentPartial()
@@ -166,7 +197,7 @@ public class ToggleModels : MonoBehaviour
 		monumentWireframePartial.SetActive(false);
 		monumentWireframeDestroyed.SetActive(false);
 
-		setModelTransparency(monumentPartial, 0);
+		setModelTransparency(monumentPartial, castleTexturedTransparency);
 	}
 
 	public void setMonumentDestroyed()
@@ -178,17 +209,19 @@ public class ToggleModels : MonoBehaviour
 		monumentWireframePartial.SetActive(false);
 		monumentWireframeDestroyed.SetActive(false);
 
-		setModelTransparency(monumentDestroyed, 0);
+		setModelTransparency(monumentDestroyed, castleTexturedTransparency);
 	}
 
     public void timeLineChange() {
         if (mainSlider != null) { //If for some reason this function is called without the slider being defined.
             float value = mainSlider.value;
+	        
+	        Debug.LogWarning(value);
 
-            if (value < 0.25) {
+            if (value < 0.33) {
                 //Debug.Log("Destroyed");
 	            setMonumentFull();
-            } else if (value >= 0.75) {
+            } else if (value > 0.66) {
                 //Debug.Log("Full");
 	            setMonumentDestroyed();
             } else {

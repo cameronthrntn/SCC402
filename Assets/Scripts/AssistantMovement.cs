@@ -3,7 +3,8 @@
 public class AssistantMovement : MonoBehaviour
 {
 
-	public float smoothTime = 0.3F;
+	private const float defaultSmoothTime = 0.3F;
+	private float smoothTime = defaultSmoothTime;
 	private Vector3 velocity = Vector3.zero;
 
 	private int offsetX = 5;
@@ -13,9 +14,12 @@ public class AssistantMovement : MonoBehaviour
 	private Vector3 screenPoint;
 	private Vector3 offset;
 	private Vector3 curPosition;
+	private Vector3 prevPosition;
 	
 	void OnMouseDown()
 	{
+		smoothTime = 0.08f;
+		
 		screenPoint = Camera.main.WorldToScreenPoint(transform.position);
 		offset = transform.position - Camera.main.ScreenToWorldPoint(
 			         new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
@@ -23,18 +27,53 @@ public class AssistantMovement : MonoBehaviour
 
 	void OnMouseDrag()
 	{
+		smoothTime = 0.08f;
+		
 		Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
+		prevPosition = curPosition;
 		curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
 	}
 
 	void OnMouseUp()
 	{
+		moveSettingsIn = prevPosition.y > curPosition.y;
+		
+		smoothTime = defaultSmoothTime;
 		curPosition = Vector3.zero;
 	}
+
+	private void Start()
+	{
+		settingsMenu = GameObject.Find("SettingsMenu").GetComponent<RectTransform>();
+		initialPos = settingsMenu.position;
+	}
+
+	private bool moveSettingsIn = false;
+	private RectTransform settingsMenu;
+	private Vector3 initialPos;
+	private Vector3 buttonVelocity = Vector3.zero;
 	
 	void Update()
 	{
 		Vector3 targetPosition = Camera.main.transform.TransformPoint(new Vector3(offsetX, offsetY, offsetZ));
+		
+		
+		
+		if (moveSettingsIn)
+		{
+//			settingsMenu.position = Vector3.SmoothDamp(initialPos, Vector3.zero, ref buttonVelocity, 0.02f);
+			settingsMenu.position = Vector3.Lerp(Vector3.zero, initialPos, Time.deltaTime * 0.01f);
+			targetPosition = Camera.main.transform.TransformPoint(new Vector3(2, -2, 10));
+		}
+		else
+		{
+//			settingsMenu.position = Vector3.SmoothDamp(Vector3.zero, initialPos, ref buttonVelocity, 0.02f);
+			settingsMenu.position = Vector3.Lerp(initialPos, Vector3.zero, Time.deltaTime * 0.01f);
+		}
+		
+		
+		
+		
 		if (curPosition != Vector3.zero)
 		{
 			targetPosition = curPosition;

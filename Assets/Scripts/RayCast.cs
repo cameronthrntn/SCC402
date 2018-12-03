@@ -117,6 +117,11 @@ public class RayCast : MonoBehaviour
     private void rayHit(RaycastHit hit)
     {
         GameObject objectRayHit = hit.transform.gameObject;
+        if (objectRayHit.name.Equals("AssistantContainer"))
+        {
+            return;
+        }
+        
         if (gameObjectHit != objectRayHit) {
             startGazeAt(objectRayHit);
             return;

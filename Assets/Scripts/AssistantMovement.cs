@@ -10,10 +10,35 @@ public class AssistantMovement : MonoBehaviour
 	private int offsetY = 3;
 	private int offsetZ = 15;
 
+	private Vector3 screenPoint;
+	private Vector3 offset;
+	private Vector3 curPosition;
+	
+	void OnMouseDown()
+	{
+		screenPoint = Camera.main.WorldToScreenPoint(transform.position);
+		offset = transform.position - Camera.main.ScreenToWorldPoint(
+			         new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+	}
+
+	void OnMouseDrag()
+	{
+		Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
+		curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
+	}
+
+	void OnMouseUp()
+	{
+		curPosition = Vector3.zero;
+	}
+	
 	void Update()
 	{
-		
 		Vector3 targetPosition = Camera.main.transform.TransformPoint(new Vector3(offsetX, offsetY, offsetZ));
+		if (curPosition != Vector3.zero)
+		{
+			targetPosition = curPosition;
+		}
 		
 		
 //		Plane plane = new Plane(Vector3.up, new Vector3(0, 2, 0));
@@ -32,7 +57,6 @@ public class AssistantMovement : MonoBehaviour
 		//		3 game metres above center of screen
 		//		20 game metres in front of camera
 		transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
-
 		transform.LookAt(Camera.main.transform);
 	}
 }

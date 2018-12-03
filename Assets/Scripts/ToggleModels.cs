@@ -181,17 +181,16 @@ public class ToggleModels : MonoBehaviour
 		setModelTransparency(monumentDestroyed, 0);
 	}
 
-
     public void timeLineChange() {
         if (mainSlider != null) { //If for some reason this function is called without the slider being defined.
             float value = mainSlider.value;
 
             if (value < 0.25) {
                 //Debug.Log("Destroyed");
-                setMonumentDestroyed();
+	            setMonumentFull();
             } else if (value >= 0.75) {
                 //Debug.Log("Full");
-                setMonumentFull();
+	            setMonumentDestroyed();
             } else {
                 //Debug.Log("Partial");
                 setMonumentPartial();

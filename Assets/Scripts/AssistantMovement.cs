@@ -16,6 +16,10 @@ public class AssistantMovement : MonoBehaviour
 	private Vector3 curPosition;
 	private Vector3 prevPosition;
 	
+	private GameObject assistant;
+	private AudioSource assistantAudioSource;
+	public int numberOfTimesIntroHasBeenPlayed = 0;
+	
 	void OnMouseDown()
 	{
 		smoothTime = 0.08f;
@@ -46,6 +50,9 @@ public class AssistantMovement : MonoBehaviour
 	{
 		settingsMenu = GameObject.Find("SettingsMenu").GetComponent<RectTransform>();
 		initialPos = settingsMenu.position;
+		
+		assistant = GameObject.Find("Assistant");
+		assistantAudioSource = assistant.gameObject.GetComponent<AudioSource>();
 	}
 
 	private bool moveSettingsIn = false;
@@ -56,6 +63,20 @@ public class AssistantMovement : MonoBehaviour
 	void Update()
 	{
 		Vector3 targetPosition = Camera.main.transform.TransformPoint(new Vector3(offsetX, offsetY, offsetZ));
+		
+		
+		if (assistantAudioSource.isPlaying)
+		{
+			if (assistantAudioSource.clip.name == "Intro")
+			{
+				targetPosition = Camera.main.transform.TransformPoint(new Vector3(0, 0, 10));
+				transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+				transform.LookAt(Camera.main.transform);
+				numberOfTimesIntroHasBeenPlayed = numberOfTimesIntroHasBeenPlayed + 1;
+				return;
+			}           
+		}
+		
 		
 		
 		

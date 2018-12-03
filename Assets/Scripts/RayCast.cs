@@ -267,6 +267,10 @@ public class RayCast : MonoBehaviour
         floatTextBack.fillAmount = 0;
         floatingTextGrowth = 0;
         HotspotName hotspotName = gameObject.GetComponent<HotspotName>();
-        hotSpotText.text = hotspotName.name;
+
+        if (hotSpotText != null && hotspotName != null)
+        {
+            hotSpotText.text = hotspotName.name;
+        }
     }
 }

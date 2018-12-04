@@ -66,21 +66,5 @@ public class ButtonActions : MonoBehaviour
                 break;
         }
     }
-
-    public void play() {
-        if (assistantAudioSource.isPlaying) {
-            controls.EventAction(RayCast.MEDIA_EVENT_PAUSED, "");
-        } else {
-            controls.EventAction(RayCast.MEDIA_EVENT_PLAYING, "");
-        }
-    }
-
-    public void prev() {
-        controls.EventAction(RayCast.MEDIA_EVENT_PREV, "");
-    }
-
-    public void next() {
-        controls.EventAction(RayCast.MEDIA_EVENT_NEXT, "");
-    }
 }
 

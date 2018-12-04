@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Emoji = AssistantEmojis;
 using System;
-using UnityEngine.UI;
 
 public class AssistantMediaControls : MonoBehaviour {
 
@@ -15,7 +14,6 @@ public class AssistantMediaControls : MonoBehaviour {
     private Renderer playBtnRenderer;
 
     public static int clipPlaying = 0;
-    public RectTransform mediaMenu;
 
     public const string CRY = "cry";
     public const string EYE = "eye";
@@ -31,17 +29,13 @@ public class AssistantMediaControls : MonoBehaviour {
 
     public Dictionary<string, string[]> audioClips;        //Holds emoji reactions in relation to clip
     public Renderer assistantScreenImage;
-    public Image pauseBtnImg;
-    public Button playBtn;
 
     AudioClip[] EB = new AudioClip[5];
     AudioClip[] DR = new AudioClip[5];
 
     volatile bool finishedClip = true;
     public static bool playing = false;
-    bool settingsVisible = false;
-    Vector3 initialPos;
-    float transitionSpeed = 10f;
+
 
     // Use this for initialization
     void Start () {
@@ -51,7 +45,6 @@ public class AssistantMediaControls : MonoBehaviour {
 		playBtnRenderer = transform.Find("play").GetComponent<Renderer>();
 
         initAudioClips();
-        initialPos = mediaMenu.position;
     }
 	
 	private void OnEnable()
@@ -61,19 +54,8 @@ public class AssistantMediaControls : MonoBehaviour {
 
 	private void OnDisable()
 	{
-        RayCast.OnMediaEvent -= EventAction;
-    }
-
-    public void displayMediaButtons(bool show) {
-        if (show) {
-            Vector3 targetPosition = Camera.main.transform.TransformPoint(new Vector3(2, -1, 10));
-            mediaMenu.position = Vector3.Lerp(mediaMenu.position, Vector3.zero, Time.deltaTime * transitionSpeed);
-            settingsVisible = true;
-        } else {
-            mediaMenu.position = Vector3.Lerp(mediaMenu.position, initialPos, Time.deltaTime * transitionSpeed);
-            settingsVisible = false;
-        }
-    }
+		RayCast.OnMediaEvent -= EventAction;
+	}
 
 	public void EventAction(int action, string emoji) {
 
@@ -86,6 +68,7 @@ public class AssistantMediaControls : MonoBehaviour {
         switch (action) {
 			case RayCast.MEDIA_EVENT_PLAYING:
 				playBtnRenderer.material = pauseButtonMat;
+
                 //Thread childThread = new Thread(play);
                 //childThread.Start(); //Runs play in separate thread
 
@@ -102,8 +85,6 @@ public class AssistantMediaControls : MonoBehaviour {
                 finishedClip = false;
                 audio.Pause();
                 playBtnRenderer.material = playButtonMat;
-                playBtn.image = pauseBtnImg;
-
 				break;
 			case RayCast.MEDIA_EVENT_STOPPED:
                 StopCoroutine("play");
@@ -113,7 +94,7 @@ public class AssistantMediaControls : MonoBehaviour {
                 assistantScreenImage.material = getEmojiMaterial(Emoji.SMILE);
                 playBtnRenderer.material = playButtonMat;
                 playing = false;
-                break;
+				break;
 			case RayCast.MEDIA_EVENT_PREV:
                 StopCoroutine("play");
                 audio.Stop();
@@ -161,7 +142,6 @@ public class AssistantMediaControls : MonoBehaviour {
         }
 
         clipPlaying = 0;
-        assistantScreenImage.material = getEmojiMaterial(Emoji.SMILE);
 
     }
 
@@ -190,16 +170,8 @@ public class AssistantMediaControls : MonoBehaviour {
     }
 
     private void Update(){
-        if (playing) { //Making settings visible
-            Vector3 target = initialPos - new Vector3(mediaMenu.rect.width+40, 0, 0);
 
-            mediaMenu.position = Vector3.Lerp(mediaMenu.position, target, Time.deltaTime * transitionSpeed);
-            settingsVisible = true;
-        } else { //Making settings invisible
-            mediaMenu.position = Vector3.Lerp(mediaMenu.position, initialPos, Time.deltaTime * transitionSpeed);
-            settingsVisible = false;
-        }
-    }
+	}
 
     public Material getEmojiMaterial(string emoji) {
         Debug.Log(emoji);

@@ -57,7 +57,7 @@ public class AssistantMovement : MonoBehaviour
         travelDistance = -settingsMenu.position.x;
 	}
 
-	private bool moveSettingsIn = false;
+	private bool moveSettingsIn = true;
 	private RectTransform settingsMenu;
 	private Vector3 initialPos;
 	private Vector3 buttonVelocity = Vector3.zero;
@@ -80,20 +80,20 @@ public class AssistantMovement : MonoBehaviour
 				targetPosition = Camera.main.transform.TransformPoint(new Vector3(0, 0, 10));
 				transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
 				transform.LookAt(Camera.main.transform);
-				numberOfTimesIntroHasBeenPlayed++;
+				numberOfTimesIntroHasBeenPlayed = numberOfTimesIntroHasBeenPlayed + 1;
 				return;
 			}           
 		}
 
-        if (moveSettingsIn) { //Making settings visible
-            targetPosition = Camera.main.transform.TransformPoint(new Vector3(2, -1, 10));
+        if (!moveSettingsIn) {
+            targetPosition = Camera.main.transform.TransformPoint(new Vector3(2, -2, 10));
             settingsMenu.position = Vector3.Lerp(settingsMenu.position, Vector3.zero, Time.deltaTime * transitionSpeed);
             settingsVisible = true;
 
             //settingsMenu.position = Vector3.SmoothDamp(initialPos, Vector3.zero, ref buttonVelocity, 0.02f);
             //settingsMenu.position = Vector3.Lerp(initialPos, Vector3.zero, Time.deltaTime * transitionSpeed);        
         }
-		else { //Making settings invisible
+		else {
             settingsMenu.position = Vector3.Lerp(settingsMenu.position, initialPos, Time.deltaTime * transitionSpeed);
             settingsVisible = false;
             //			settingsMenu.position = Vector3.SmoothDamp(Vector3.zero, initialPos, ref buttonVelocity, 0.02f);

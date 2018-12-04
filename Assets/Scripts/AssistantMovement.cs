@@ -106,7 +106,10 @@ public class AssistantMovement : MonoBehaviour
 		{
 			targetPosition = curPosition;
 		}
-		
+
+        if (AssistantMediaControls.playing) {
+            //targetPosition = Camera.main.transform.TransformPoint(new Vector3(2, 0, 10));
+        }
 		
 //		Plane plane = new Plane(Vector3.up, new Vector3(0, 2, 0));
 //		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

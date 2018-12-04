@@ -34,6 +34,7 @@ public class AssistantMediaControls : MonoBehaviour {
     AudioClip[] DR = new AudioClip[5];
 
     volatile bool finishedClip = true;
+    public static bool playing = false;
 
 
     // Use this for initialization
@@ -74,6 +75,8 @@ public class AssistantMediaControls : MonoBehaviour {
                 StopCoroutine("play");
                 StartCoroutine("play");
 
+                playing = true;
+
                 Debug.Log("Play pressed");
 				break;
 			case RayCast.MEDIA_EVENT_PAUSED:
@@ -90,6 +93,7 @@ public class AssistantMediaControls : MonoBehaviour {
                 Debug.Log("Stopped pressed");
                 assistantScreenImage.material = getEmojiMaterial(Emoji.SMILE);
                 playBtnRenderer.material = playButtonMat;
+                playing = false;
 				break;
 			case RayCast.MEDIA_EVENT_PREV:
                 StopCoroutine("play");

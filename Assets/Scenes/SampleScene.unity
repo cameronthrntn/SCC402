@@ -13690,7 +13690,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1402747828689856, guid: f244144c784cb0e4d839d013dfbfd0b6, type: 2}
       propertyPath: m_Name
-      value: vid2
+      value: Documentary
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 135884369364758134, guid: f244144c784cb0e4d839d013dfbfd0b6, type: 2}
@@ -14978,6 +14978,38 @@ Transform:
   - {fileID: 1648595069}
   m_Father: {fileID: 2047807819}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &500784387
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 500784388}
+  m_Layer: 0
+  m_Name: Hotpots
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &500784388
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 500784387}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 908729270}
+  - {fileID: 1909347228}
+  - {fileID: 1588734943}
+  - {fileID: 2131959789}
+  m_Father: {fileID: 673844740}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &501869403
 GameObject:
@@ -19350,7 +19382,7 @@ Transform:
   - {fileID: 1755748509}
   - {fileID: 1153407477}
   m_Father: {fileID: 673844740}
-  m_RootOrder: 7
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &631832988
 GameObject:
@@ -27499,7 +27531,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 673844740}
+    m_TransformParent: {fileID: 500784388}
     m_Modifications:
     - target: {fileID: 4983145783195360, guid: f244144c784cb0e4d839d013dfbfd0b6, type: 2}
       propertyPath: m_LocalPosition.x
@@ -27531,7 +27563,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4983145783195360, guid: f244144c784cb0e4d839d013dfbfd0b6, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 135884369364758134, guid: f244144c784cb0e4d839d013dfbfd0b6,
         type: 2}
@@ -27541,6 +27573,18 @@ Prefab:
     - target: {fileID: 1402747828689856, guid: f244144c784cb0e4d839d013dfbfd0b6, type: 2}
       propertyPath: m_Name
       value: H The Lancaster Martyrs
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983145783195360, guid: f244144c784cb0e4d839d013dfbfd0b6, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983145783195360, guid: f244144c784cb0e4d839d013dfbfd0b6, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983145783195360, guid: f244144c784cb0e4d839d013dfbfd0b6, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 135884369364758134, guid: f244144c784cb0e4d839d013dfbfd0b6, type: 2}
@@ -47531,13 +47575,13 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 302181542}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -30.619999, y: 13.37, z: 40.13}
+  m_LocalPosition: {x: -30.619999, y: 13.369999, z: 40.13}
   m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children:
   - {fileID: 1491687997}
   - {fileID: 1149359116}
-  m_Father: {fileID: 673844740}
-  m_RootOrder: 4
+  m_Father: {fileID: 500784388}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1588747104
 GameObject:
@@ -47728,7 +47772,7 @@ Transform:
   - {fileID: 263242661}
   - {fileID: 962369052}
   m_Father: {fileID: 673844740}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1596540904
 GameObject:
@@ -54874,11 +54918,11 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 673844740}
+    m_TransformParent: {fileID: 500784388}
     m_Modifications:
     - target: {fileID: 4983145783195360, guid: f244144c784cb0e4d839d013dfbfd0b6, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -9.32
+      value: -9.320001
       objectReference: {fileID: 0}
     - target: {fileID: 4983145783195360, guid: f244144c784cb0e4d839d013dfbfd0b6, type: 2}
       propertyPath: m_LocalPosition.y
@@ -54886,7 +54930,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4983145783195360, guid: f244144c784cb0e4d839d013dfbfd0b6, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 15.6
+      value: 15.599999
       objectReference: {fileID: 0}
     - target: {fileID: 4983145783195360, guid: f244144c784cb0e4d839d013dfbfd0b6, type: 2}
       propertyPath: m_LocalRotation.x
@@ -54906,7 +54950,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4983145783195360, guid: f244144c784cb0e4d839d013dfbfd0b6, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 135884369364758134, guid: f244144c784cb0e4d839d013dfbfd0b6,
         type: 2}
@@ -54915,19 +54959,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4983145783195360, guid: f244144c784cb0e4d839d013dfbfd0b6, type: 2}
       propertyPath: m_LocalScale.x
-      value: 6.000001
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4983145783195360, guid: f244144c784cb0e4d839d013dfbfd0b6, type: 2}
       propertyPath: m_LocalScale.y
-      value: 6.0000005
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4983145783195360, guid: f244144c784cb0e4d839d013dfbfd0b6, type: 2}
       propertyPath: m_LocalScale.z
-      value: 6.000001
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1402747828689856, guid: f244144c784cb0e4d839d013dfbfd0b6, type: 2}
       propertyPath: m_Name
-      value: Hotspot (1)
+      value: H Execution
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 135884369364758134, guid: f244144c784cb0e4d839d013dfbfd0b6, type: 2}
@@ -61885,7 +61929,7 @@ Transform:
   m_LocalScale: {x: 74.70709, y: 0.01, z: 101.94121}
   m_Children: []
   m_Father: {fileID: 673844740}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &2106912621
 MeshRenderer:
@@ -62510,15 +62554,15 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2131959790}
-  m_LocalRotation: {x: -0, y: 0.086769454, z: -0, w: 0.99622846}
+  m_LocalRotation: {x: -0, y: 0.08676947, z: -0, w: 0.99622846}
   m_LocalPosition: {x: -7.851673, y: 2.54, z: -8.745493}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 2050374015}
   - {fileID: 291561045}
   - {fileID: 289209508}
-  m_Father: {fileID: 673844740}
-  m_RootOrder: 0
+  m_Father: {fileID: 500784388}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 9.956, z: 0}
 --- !u!1 &2131959790
 GameObject:
@@ -62535,7 +62579,7 @@ GameObject:
   - component: {fileID: 2131959795}
   - component: {fileID: 2131959792}
   m_Layer: 11
-  m_Name: midroom
+  m_Name: Lancaster Castle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

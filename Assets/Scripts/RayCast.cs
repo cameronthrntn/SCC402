@@ -148,7 +148,11 @@ public class RayCast : MonoBehaviour
     private void rayHit(RaycastHit hit)
     {
         GameObject objectRayHit = hit.transform.gameObject;
-        if (objectRayHit.name.Equals("AssistantContainer"))
+        if (objectRayHit.name.Equals("AssistantContainer")
+            || objectRayHit.name.Equals("play")
+            || objectRayHit.name.Equals("next")
+            || objectRayHit.name.Equals("prev")
+        )
         {
             return;
         }

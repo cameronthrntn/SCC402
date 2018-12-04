@@ -47,19 +47,23 @@ public class AssistantMovement : MonoBehaviour
 
 	void OnMouseUp()
 	{
-		if (Time.time * 1000 - time < 100 || Math.Abs((initialTouch - curPosition).magnitude) < 5)
+		Debug.Log(Math.Abs((initialTouch - curPosition).magnitude));
+		if (Time.time * 1000 - time < 90 || Math.Abs((initialTouch - curPosition).magnitude) < 5)
 		{
 			if (assistantAudioSource.isPlaying)
 			{
+				Debug.Log("here1");
 				GameObject.Find("MediaControls").GetComponent<AssistantMediaControls>().toggleGrowing();
 			}
 			else
 			{
+				Debug.Log("here2");
 				GameObject.Find("EventSystem").GetComponent<Test>().TaskOnClick();
 			}
 		}
 		else
 		{
+			Debug.Log("here3");
 			moveSettingsIn = prevPosition.y > curPosition.y;
 
 			smoothTime = defaultSmoothTime;
@@ -81,6 +85,18 @@ public class AssistantMovement : MonoBehaviour
 	private Vector3 initialPos;
 	private Vector3 buttonVelocity = Vector3.zero;
 	
+	private float transitionSpeed = 10f;
+	private int transitionTime = 1000; //In milliseconds
+	private int transitionStepTime = 100; //In milliseconds
+	private float travelDistance;
+	private bool settingsVisible = false;
+	private System.Collections.IEnumerator settingsFunc;
+	
+	
+	
+	
+	
+	
 	void Update()
 	{
 		Vector3 targetPosition = Camera.main.transform.TransformPoint(new Vector3(offsetX, offsetY, offsetZ));
@@ -101,16 +117,18 @@ public class AssistantMovement : MonoBehaviour
 		
 		
 		
-		if (moveSettingsIn)
-		{
-//			settingsMenu.position = Vector3.SmoothDamp(initialPos, Vector3.zero, ref buttonVelocity, 0.02f);
-			settingsMenu.position = Vector3.Lerp(Vector3.zero, initialPos, Time.deltaTime * 0.01f);
-			targetPosition = Camera.main.transform.TransformPoint(new Vector3(2, -2, 10));
+		if (moveSettingsIn) { //Making settings visible
+			targetPosition = Camera.main.transform.TransformPoint(new Vector3(2, -1, 10));
+			settingsMenu.position = Vector3.Lerp(settingsMenu.position, Vector3.zero, Time.deltaTime * transitionSpeed);
+			settingsVisible = true;
+
+			//settingsMenu.position = Vector3.SmoothDamp(initialPos, Vector3.zero, ref buttonVelocity, 0.02f);
+			//settingsMenu.position = Vector3.Lerp(initialPos, Vector3.zero, Time.deltaTime * transitionSpeed);        
 		}
-		else
-		{
-//			settingsMenu.position = Vector3.SmoothDamp(Vector3.zero, initialPos, ref buttonVelocity, 0.02f);
-			settingsMenu.position = Vector3.Lerp(initialPos, Vector3.zero, Time.deltaTime * 0.01f);
+		else { //Making settings invisible
+			settingsMenu.position = Vector3.Lerp(settingsMenu.position, initialPos, Time.deltaTime * transitionSpeed);
+			settingsVisible = false;
+			//			settingsMenu.position = Vector3.SmoothDamp(Vector3.zero, initialPos, ref buttonVelocity, 0.02f);
 		}
 		
 		

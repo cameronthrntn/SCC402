@@ -12,7 +12,6 @@ public class ButtonActions : MonoBehaviour
 
     public delegate void MediaEvent(int eventType, string emoji);
     public static event MediaEvent OnMediaEvent;
-    public AssistantMediaControls controls;
 
 
     private Button btn;
@@ -53,16 +52,16 @@ public class ButtonActions : MonoBehaviour
         switch (gameObject.name){
             case "play":
                 if (assistantAudioSource.isPlaying) {
-                    controls.EventAction(RayCast.MEDIA_EVENT_PAUSED, "");
+                    OnMediaEvent(RayCast.MEDIA_EVENT_PAUSED, "");
                 } else {
-                    controls.EventAction(RayCast.MEDIA_EVENT_PLAYING, "");
+                    OnMediaEvent(RayCast.MEDIA_EVENT_PLAYING, "");
                 }
                 break;
             case "prev":
-                controls.EventAction(RayCast.MEDIA_EVENT_PREV, "");
+                OnMediaEvent(RayCast.MEDIA_EVENT_PREV, "");
                 break;
             case "next":
-                controls.EventAction(RayCast.MEDIA_EVENT_NEXT, "");
+                OnMediaEvent(RayCast.MEDIA_EVENT_NEXT, "");
                 break;
         }
     }

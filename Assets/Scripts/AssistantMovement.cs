@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class AssistantMovement : MonoBehaviour
 {
@@ -19,7 +20,10 @@ public class AssistantMovement : MonoBehaviour
 	private GameObject assistant;
 	private AudioSource assistantAudioSource;
 	public int numberOfTimesIntroHasBeenPlayed = 0;
-	
+
+	private float time = 0;
+	private Vector3 initialTouch;
+
 	void OnMouseDown()
 	{
 		smoothTime = 0.08f;
@@ -27,6 +31,9 @@ public class AssistantMovement : MonoBehaviour
 		screenPoint = Camera.main.WorldToScreenPoint(transform.position);
 		offset = transform.position - Camera.main.ScreenToWorldPoint(
 			         new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+
+		time = Time.time * 1000;
+		initialTouch = screenPoint;
 	}
 
 	void OnMouseDrag()
@@ -40,10 +47,24 @@ public class AssistantMovement : MonoBehaviour
 
 	void OnMouseUp()
 	{
-		moveSettingsIn = prevPosition.y > curPosition.y;
-		
-		smoothTime = defaultSmoothTime;
-		curPosition = Vector3.zero;
+		if (Time.time * 1000 - time < 100 || Math.Abs((initialTouch - curPosition).magnitude) < 5)
+		{
+			if (assistantAudioSource.isPlaying)
+			{
+				GameObject.Find("MediaControls").GetComponent<AssistantMediaControls>().toggleGrowing();
+			}
+			else
+			{
+				GameObject.Find("EventSystem").GetComponent<Test>().TaskOnClick();
+			}
+		}
+		else
+		{
+			moveSettingsIn = prevPosition.y > curPosition.y;
+
+			smoothTime = defaultSmoothTime;
+			curPosition = Vector3.zero;
+		}
 	}
 
 	private void Start()

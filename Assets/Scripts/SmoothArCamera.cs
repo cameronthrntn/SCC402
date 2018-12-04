@@ -30,6 +30,10 @@ public class SmoothArCamera : MonoBehaviour
 	void Start ()
 	{
 		target = GameObject.Find("ObjectTarget");
+		if (target == null)
+		{
+			target = GameObject.Find("ImageTarget");
+		}
 	}
 
 	// Called before Vuforia updates positions of stuff
@@ -37,6 +41,11 @@ public class SmoothArCamera : MonoBehaviour
 	{
 		cameraPosFixed = transform.position;
 		cameraRotFixed = transform.rotation;
+
+		if (target == null)
+		{
+			return;
+		}
 
 		targetPosFixed = target.transform.position;
 		targetRotFixed = target.transform.rotation;
@@ -50,6 +59,11 @@ public class SmoothArCamera : MonoBehaviour
 	{
 		cameraPosLate = transform.position;
 		cameraRotLate = transform.rotation;
+
+		if (target == null)
+		{
+			return;
+		}
 
 		targetPosLate = target.transform.position;
 		targetRotLate = target.transform.rotation;

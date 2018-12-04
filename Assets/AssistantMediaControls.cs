@@ -8,13 +8,17 @@ public class AssistantMediaControls : MonoBehaviour {
 	private Material pauseButtonMat;
 	
 	private Renderer playBtnRenderer;
-	
+
+	private RayCast rayCastScript;
+
 	// Use this for initialization
 	void Start () {
 		playButtonMat = (Material) Resources.Load("playButton", typeof(Material));
 		pauseButtonMat = (Material) Resources.Load("pauseButton", typeof(Material));
 		
 		playBtnRenderer = transform.Find("play").GetComponent<Renderer>();
+
+		rayCastScript = Camera.main.GetComponent<RayCast>();
 	}
 	
 	private void OnEnable()
@@ -35,11 +39,12 @@ public class AssistantMediaControls : MonoBehaviour {
 			case RayCast.MEDIA_EVENT_PLAYING:
 				playBtnRenderer.material = pauseButtonMat;
 
-				growing = true;
+//				growing = true;
 				
 				
 				break;
 			case RayCast.MEDIA_EVENT_PAUSED:
+				growing = false;
 				playBtnRenderer.material = playButtonMat;
 				break;
 			case RayCast.MEDIA_EVENT_STOPPED:
@@ -55,32 +60,41 @@ public class AssistantMediaControls : MonoBehaviour {
 		}
 	}
 
+	public void toggleGrowing()
+	{
+		if (rayCastScript.isPlaying())
+		{
+			growing = !growing;
+		}
+
+	}
+
 	private bool growing = false;
-	private float scale = 0.1f;
+	private float scale = 1f;
 	private float rateOfGrowth = 0.1f;
 	private float growth = 0f;
 
 	private void Update()
 	{
-//		lock (this) {
-//			if (growing) {
-//				if (growth >= 1) {
-//					growth = 1;
-//				} else {
-//					growth += rateOfGrowth;
-//				}
-//			} else {
-//				if (growth <= 0) {
-//					growth = 0;
-//				} else {
-//					growth -= rateOfGrowth;
-//				}
-//			}
-//		}
-//
-//		Plane plane = new Plane(Camera.main.transform.forward, Camera.main.transform.position);
-//		float dist = plane.GetDistanceToPoint(transform.position);
-//		transform.localScale = new Vector3(1, 1, 1) * scale * growth;//* dist;
+		lock (this) {
+			if (growing) {
+				if (growth >= 1) {
+					growth = 1;
+				} else {
+					growth += rateOfGrowth;
+				}
+			} else {
+				if (growth <= 0) {
+					growth = 0;
+				} else {
+					growth -= rateOfGrowth;
+				}
+			}
+		}
+
+		Plane plane = new Plane(Camera.main.transform.forward, Camera.main.transform.position);
+		float dist = plane.GetDistanceToPoint(transform.position);
+		transform.localScale = new Vector3(1, 1, 1) * scale * growth;//* dist;
 
 	}
 

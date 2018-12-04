@@ -20,7 +20,7 @@ public class Test : MonoBehaviour
         }
     }
 
-    void TaskOnClick()
+    public void TaskOnClick()
     {
         AndroidJavaClass pluginClass = new AndroidJavaClass("com.plugin.speech.pluginlibrary.TestPlugin");
         Debug.Log("Call 1 Started");

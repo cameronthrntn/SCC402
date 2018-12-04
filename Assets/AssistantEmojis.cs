@@ -15,12 +15,13 @@ public class AssistantEmojis : MonoBehaviour
 	public const string thinkingm = "thinkingm";
 	public const string twofingersm = "twofingersm";
 	public const string zoom = "zoom";
+	public const string mic = "mic";
 
 	private Renderer assistantScreenImage;
 	
 	private void Start()
 	{
-		assistantScreenImage = gameObject.GetComponentInChildren<Renderer>();
+		assistantScreenImage = gameObject.transform.GetChild(0).GetComponent<Renderer>();
 	}
 
 	private void OnEnable()

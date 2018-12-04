@@ -9,19 +9,19 @@ public class RayCast : MonoBehaviour
     public delegate void MediaEvent(int eventType, string emoji);
     public static event MediaEvent OnMediaEvent;
 
-    
-    
+
+
     public const int MEDIA_EVENT_PLAYING = 1;
     public const int MEDIA_EVENT_PAUSED = 2;
     public const int MEDIA_EVENT_STOPPED = 3;
     public const int MEDIA_EVENT_PREV = 4;
     public const int MEDIA_EVENT_NEXT = 5;
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
     private Camera camera;
     private RaycastHit hit;
 
@@ -65,7 +65,6 @@ public class RayCast : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit)) {
             rayHit(hit);
-
         } else {
             gazeLeftObject(null);
         }
@@ -153,7 +152,7 @@ public class RayCast : MonoBehaviour
         {
             return;
         }
-        
+
         if (gameObjectHit != objectRayHit) {
             startGazeAt(objectRayHit);
             return;
@@ -202,7 +201,7 @@ public class RayCast : MonoBehaviour
 
     private void startGazeAt(GameObject gameObject)
     {
-        gazeLeftObject(gameObject);
+//        gazeLeftObject(gameObject);
         findFloatingTextIn(gameObject);
 
         if (objectPerformingActionOn == null) {
@@ -230,32 +229,39 @@ public class RayCast : MonoBehaviour
             if (mediaDisplay != null) {
                 mediaDisplay.stopAction();
             }
-            prevGameObjectHit = null;
+//            prevGameObjectHit = null;
         }
 
         timeGazing = 0;
-        if (gameObjectHit != null) {
-            prevGameObjectHit = gameObjectHit;
-        }
+//        if (gameObjectHit != null) {
+//            prevGameObjectHit = gameObjectHit;
+//        }
         gameObjectHit = null;
         radialProgressBarFill.fillAmount = 0;
     }
 
-    //    private void clickButton(GameObject gameObject) { //Clicks a button, if the gameObject has one.
-    //        if (gameObject == null)
-    //        {
-    //            return;
-    //        }
-    //
-    //        Button btn = gameObject.GetComponent<Button>();
-    //        if (btn != null)
-    //        {
-    //            btn.onClick.Invoke();
-    //        }
-    //    }
+    private void stopAction()
+    {
+        if (prevGameObjectHit != null) {
+            setAssistantPlaying(prevGameObjectHit, false);
+
+            MediaDisplay mediaDisplay = prevGameObjectHit.GetComponentInChildren<MediaDisplay>();
+            if (mediaDisplay != null) {
+                mediaDisplay.stopAction();
+            }
+            prevGameObjectHit = null;
+        }
+
+        timeGazing = 0;
+//        gameObjectHit = null;
+        radialProgressBarFill.fillAmount = 0;
+    }
 
     private void performAction()
     {
+        stopAction();
+        prevGameObjectHit = gameObjectHit;
+
         isPaused = false;
         hasPerformedActionOnObject = true;
         setAssistantPlaying(gameObjectHit, true);

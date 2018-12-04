@@ -16,7 +16,7 @@ public class playIntroductionAudio : MonoBehaviour
   
 		if (numberOfTimesVisible < 1)
 		{
-			//assistantAudioSource.Play();
+			assistantAudioSource.Play();
 		}
 
 		numberOfTimesVisible = numberOfTimesVisible + 1;

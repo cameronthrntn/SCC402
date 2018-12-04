@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Emoji = AssistantEmojis;
-
 
 public class RayCast : MonoBehaviour
 {
@@ -11,18 +9,19 @@ public class RayCast : MonoBehaviour
     public delegate void MediaEvent(int eventType, string emoji);
     public static event MediaEvent OnMediaEvent;
 
-    public static int eventArg;             
-    public static string eventEmojiArg;
-
+    
+    
     public const int MEDIA_EVENT_PLAYING = 1;
     public const int MEDIA_EVENT_PAUSED = 2;
     public const int MEDIA_EVENT_STOPPED = 3;
     public const int MEDIA_EVENT_PREV = 4;
     public const int MEDIA_EVENT_NEXT = 5;
-
-    Dictionary<string, string[]> audioClips;        //Holds emoji reactions in relation to clip
-    public string audioName;                        //Name of the audio being played e.g. EB or DR
-
+    
+    
+    
+    
+    
+    
     private Camera camera;
     private RaycastHit hit;
 
@@ -41,7 +40,7 @@ public class RayCast : MonoBehaviour
     public Material assistantSpeakingMat;
     public Text hotSpotText;
 
-    public static AudioSource assistantAudioSource;
+    private AudioSource assistantAudioSource;
 
     public GameObject floatingText;
     public Image floatTextBack;
@@ -52,17 +51,11 @@ public class RayCast : MonoBehaviour
     private float floatingTextGrowth = 0f;
 
     // Use this for initialization
-    void Start() {
+    void Start()
+    {
         camera = GetComponent<Camera>();
         assistantAudioSource = assistant.GetComponent<AudioSource>();
         floatingTextScale = floatingText.transform.localScale.x;
-
-        initAudioClips();
-    }
-
-    private void initAudioClips() {
-        audioClips["EB"] = new string[] { Emoji.NORMAL, Emoji.SMILE, Emoji.CRY, Emoji.SHOCKED, Emoji.CRY };
-        audioClips["DR"] = new string[] { Emoji.NORMAL, Emoji.THINKING, Emoji.CRY, Emoji.SHOCKED, Emoji.THINKING };
     }
 
     // Update is called once per frame
@@ -229,12 +222,14 @@ public class RayCast : MonoBehaviour
     //        }
     //    }
 
-    private void performAction() {
+    private void performAction()
+    {
         hasPerformedActionOnObject = true;
         setAssistantPlaying(gameObjectHit, true);
 
-        if (OnMediaEvent != null) {
-            OnMediaEvent(MEDIA_EVENT_PLAYING, AssistantEmojis.SMILE);
+        if (OnMediaEvent != null)
+        {
+            OnMediaEvent(MEDIA_EVENT_PLAYING, AssistantEmojis.smile);
         }
         
         MediaDisplay mediaDisplay = gameObjectHit.GetComponentInChildren<MediaDisplay>();
@@ -255,8 +250,6 @@ public class RayCast : MonoBehaviour
     {
         if (play) {
             AudioSource hotspotAudio = gameObject.GetComponent<AudioSource>();
-            HotspotName hotspotName = gameObject.GetComponent<HotspotName>();
-            audioName = hotspotName.name;
             if (hotspotAudio != null) {
                 assistantAudioSource.clip = hotspotAudio.clip;
                 //Debug.Log("Playing Audio");
@@ -266,7 +259,6 @@ public class RayCast : MonoBehaviour
             }
         } else {
             assistantAudioSource.Stop();
-            OnMediaEvent(MEDIA_EVENT_STOPPED, Emoji.SMILE);
         }
 
         assistant.GetComponent<Renderer>().material = assistantSpeakingMat;

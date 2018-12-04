@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class AssistantEmojis : MonoBehaviour
 {
-	public const string CRY = "cry";
-	public const string EYE = "eye";
-	public const string HAND = "hand";
-	public const string LARGE_SMILE = "largesmile";
-	public const string NORMAL = "normal";
-	public const string NUMBER_ONE = "numberone";
-	public const string SHOCKED = "shocked";
-	public const string SMILE = "smile";
-	public const string THINKING = "thinkingm";
-	public const string PEACE_SIGN = "twofingersm";
-	public const string ZOOM = "zoom";
+	public const string cry = "cry";
+	public const string eye = "eye";
+	public const string hand = "hand";
+	public const string largesmile = "largesmile";
+	public const string normal = "normal";
+	public const string numberone = "numberone";
+	public const string shocked = "shocked";
+	public const string smile = "smile";
+	public const string thinkingm = "thinkingm";
+	public const string twofingersm = "twofingersm";
+	public const string zoom = "zoom";
 
 	private Renderer assistantScreenImage;
 	
@@ -35,15 +35,13 @@ public class AssistantEmojis : MonoBehaviour
 	
 	private void EventAction(int action, string emoji)
 	{
-        if (emoji != "") {
-            assistantScreenImage.material = getEmojiMaterial(emoji);
-        }
-
+		assistantScreenImage.material = getEmojiMaterial(emoji);
+		
 		switch (action)
 		{
 			case RayCast.MEDIA_EVENT_PLAYING:
-                Debug.Log("Play pressed in emojis");
-                break;
+				
+				break;
 			case RayCast.MEDIA_EVENT_PAUSED:
 				
 				break;
@@ -59,9 +57,10 @@ public class AssistantEmojis : MonoBehaviour
 		}
 	}
 
-	public Material getEmojiMaterial(string emoji) {
-            Debug.Log(emoji);
-            return (Material)Resources.Load(emoji, typeof(Material));  
+	public Material getEmojiMaterial(string emoji)
+	{
+		Debug.Log(emoji);
+		return (Material) Resources.Load(emoji, typeof(Material));
 	}
 
 	

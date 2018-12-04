@@ -157,5 +157,10 @@ public class AssistantMovement : MonoBehaviour
 		//		20 game metres in front of camera
 		transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
 		transform.LookAt(Camera.main.transform);
+
+		if (Camera.main.transform.rotation.x == -1)
+		{
+			transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, 180, transform.rotation.w);
+		}
 	}
 }

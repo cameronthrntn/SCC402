@@ -39,8 +39,7 @@ public class AssistantMediaControls : MonoBehaviour {
 			case RayCast.MEDIA_EVENT_PLAYING:
 				playBtnRenderer.material = pauseButtonMat;
 
-//				growing = true;
-				
+				growing = true;
 				
 				break;
 			case RayCast.MEDIA_EVENT_PAUSED:

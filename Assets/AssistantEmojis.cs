@@ -35,14 +35,14 @@ public class AssistantEmojis : MonoBehaviour
 	
 	private void EventAction(int action, string emoji)
 	{
-        if (emoji != "") {
-            assistantScreenImage.material = getEmojiMaterial(emoji);
-        }
+        //if (emoji != "") {
+        //    assistantScreenImage.material = getEmojiMaterial(emoji);
+        //}
 
 		switch (action)
 		{
 			case RayCast.MEDIA_EVENT_PLAYING:
-                Debug.Log("Play pressed in emojis");
+                //Debug.Log("Play pressed in emojis");
                 break;
 			case RayCast.MEDIA_EVENT_PAUSED:
 				

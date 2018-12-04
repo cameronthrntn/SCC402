@@ -10,6 +10,10 @@ public class ButtonActions : MonoBehaviour
     private ArrayList timingIntervalForAudio = new ArrayList();
     private int delayTimeForForewardRewind = 1;
 
+    public delegate void MediaEvent(int eventType, string emoji);
+    public static event MediaEvent OnMediaEvent;
+
+
     private Button btn;
 
     void Start()
@@ -45,51 +49,19 @@ public class ButtonActions : MonoBehaviour
     }
     
     void OnMouseDown() {
-
-        
-        switch (gameObject.name)
-        {
+        switch (gameObject.name){
             case "play":
-                if (assistantAudioSource.isPlaying)
-                {
-                    assistantAudioSource.Pause();
-                }
-                else
-                {
-                    assistantAudioSource.UnPause();
+                if (assistantAudioSource.isPlaying) {
+                    OnMediaEvent(RayCast.MEDIA_EVENT_PAUSED, "");
+                } else {
+                    OnMediaEvent(RayCast.MEDIA_EVENT_PLAYING, "");
                 }
                 break;
             case "prev":
-                float currenttimeofaudio = assistantAudioSource.time;
-
-                int[] rewindarray = timingIntervalForAudio.ToArray(typeof(int)) as int[];
-
-                Debug.LogError(rewindarray.Length);
-
-                var indexofclosesttimeofaudioforrewind = timingIntervalForAudio.IndexOf(rewindarray, rewindarray.OrderBy(a => Math.Abs(currenttimeofaudio - a)).First());
-
-                assistantAudioSource.Stop();
-
-                assistantAudioSource.time = rewindarray[indexofclosesttimeofaudioforrewind - 1];
-
-                assistantAudioSource.Play();
+                OnMediaEvent(RayCast.MEDIA_EVENT_PREV, "");
                 break;
             case "next":
-                currenttimeofaudio = assistantAudioSource.time;
-
-                int[] array = timingIntervalForAudio.ToArray(typeof(int)) as int[];
-
-                Debug.LogError(array.Length);
-
-
-                var indexofclosesttimeofaudio = timingIntervalForAudio.IndexOf(array, array.OrderBy(a => Math.Abs(currenttimeofaudio - a)).First());
-
-                assistantAudioSource.Stop();
-
-                assistantAudioSource.time = array[indexofclosesttimeofaudio + 1];
-
-                assistantAudioSource.Play();
-
+                OnMediaEvent(RayCast.MEDIA_EVENT_NEXT, "");
                 break;
         }
     }

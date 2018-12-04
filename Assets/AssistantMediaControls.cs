@@ -31,8 +31,7 @@ public class AssistantMediaControls : MonoBehaviour {
 
     public Dictionary<string, string[]> audioClips;        //Holds emoji reactions in relation to clip
     public Renderer assistantScreenImage;
-    public Sprite pauseBtnSprite;
-    public Sprite playBtnSprite;
+    public Image pauseBtnImg;
     public Button playBtn;
 
     AudioClip[] EB = new AudioClip[5];
@@ -87,7 +86,6 @@ public class AssistantMediaControls : MonoBehaviour {
         switch (action) {
 			case RayCast.MEDIA_EVENT_PLAYING:
 				playBtnRenderer.material = pauseButtonMat;
-                playBtn.GetComponent<Image>().sprite = pauseBtnSprite;
                 //Thread childThread = new Thread(play);
                 //childThread.Start(); //Runs play in separate thread
 
@@ -104,7 +102,7 @@ public class AssistantMediaControls : MonoBehaviour {
                 finishedClip = false;
                 audio.Pause();
                 playBtnRenderer.material = playButtonMat;
-                playBtn.GetComponent<Image>().sprite = playBtnSprite;
+                playBtn.image = pauseBtnImg;
 
 				break;
 			case RayCast.MEDIA_EVENT_STOPPED:
@@ -114,7 +112,6 @@ public class AssistantMediaControls : MonoBehaviour {
                 Debug.Log("Stopped pressed");
                 assistantScreenImage.material = getEmojiMaterial(Emoji.SMILE);
                 playBtnRenderer.material = playButtonMat;
-                playBtn.GetComponent<Image>().sprite = playBtnSprite;
                 playing = false;
                 break;
 			case RayCast.MEDIA_EVENT_PREV:

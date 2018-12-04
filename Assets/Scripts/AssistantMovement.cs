@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AssistantMovement : MonoBehaviour
 {
@@ -54,19 +53,12 @@ public class AssistantMovement : MonoBehaviour
 		
 		assistant = GameObject.Find("Assistant");
 		assistantAudioSource = assistant.gameObject.GetComponent<AudioSource>();
-        travelDistance = -settingsMenu.position.x;
 	}
 
-	private bool moveSettingsIn = true;
+	private bool moveSettingsIn = false;
 	private RectTransform settingsMenu;
 	private Vector3 initialPos;
 	private Vector3 buttonVelocity = Vector3.zero;
-    private float transitionSpeed = 1f;
-    private int transitionTime = 1000; //In milliseconds
-    private int transitionStepTime = 100; //In milliseconds
-    private float travelDistance;
-    private bool settingsVisible = false;
-    private System.Collections.IEnumerator settingsFunc;
 	
 	void Update()
 	{
@@ -84,32 +76,21 @@ public class AssistantMovement : MonoBehaviour
 				return;
 			}           
 		}
-
-
-
-
-        if (!moveSettingsIn) {
-            targetPosition = Camera.main.transform.TransformPoint(new Vector3(2, -2, 10));
-            if (!settingsVisible) {
-                //			settingsMenu.position = Vector3.SmoothDamp(initialPos, Vector3.zero, ref buttonVelocity, 0.02f);
-
-                settingsMenu.position = Vector3.Lerp(Vector3.zero, initialPos, Time.deltaTime * transitionSpeed);
-
-
-            //StartCoroutine(settingsVisible());
-
-            settingsVisible = true;
-        }
-        }
-		else {
-            if (settingsVisible) {
-                //			settingsMenu.position = Vector3.SmoothDamp(Vector3.zero, initialPos, ref buttonVelocity, 0.02f);
-
-                settingsMenu.position = Vector3.Lerp(initialPos, Vector3.zero, Time.deltaTime * transitionSpeed);
-
-                settingsVisible = false;
-            }
-        }
+		
+		
+		
+		
+		if (moveSettingsIn)
+		{
+//			settingsMenu.position = Vector3.SmoothDamp(initialPos, Vector3.zero, ref buttonVelocity, 0.02f);
+			settingsMenu.position = Vector3.Lerp(Vector3.zero, initialPos, Time.deltaTime * 0.01f);
+			targetPosition = Camera.main.transform.TransformPoint(new Vector3(2, -2, 10));
+		}
+		else
+		{
+//			settingsMenu.position = Vector3.SmoothDamp(Vector3.zero, initialPos, ref buttonVelocity, 0.02f);
+			settingsMenu.position = Vector3.Lerp(initialPos, Vector3.zero, Time.deltaTime * 0.01f);
+		}
 		
 		
 		
@@ -138,32 +119,4 @@ public class AssistantMovement : MonoBehaviour
 		transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
 		transform.LookAt(Camera.main.transform);
 	}
-
-
-    System.Collections.IEnumerator settingsVisibility(bool makeVisible) {
-        if (makeVisible) {
-            if (!settingsVisible) {
-                int steps = transitionTime / transitionStepTime;
-                for (int i = 0; i < steps; i++) {
-                    Debug.Log("Running Foward");
-                    float newX = settingsMenu.position.x + ((i + 1) / steps) * travelDistance;
-                    settingsMenu.position = new Vector3(newX, settingsMenu.position.y, settingsMenu.position.z);
-                    yield return new WaitForSeconds(transitionStepTime / 1000);
-                }
-                settingsVisible = true;
-            }
-        } else {
-            if (settingsVisible) {
-                int steps = transitionTime / transitionStepTime;
-                for (int i = 0; i < steps; i++) {
-                    Debug.Log("Running Back");
-                    float newX = settingsMenu.position.x - ((i + 1) / steps) * travelDistance;
-                    settingsMenu.position = new Vector3(newX, settingsMenu.position.y, settingsMenu.position.z);
-                    yield return new WaitForSeconds(transitionStepTime / 1000);
-                }
-                settingsVisible = false;
-            }
-        }
-    }
-
 }

@@ -17,7 +17,8 @@ public class MediaDisplay : MonoBehaviour
     public float reductionMult = 0.02f;
 
     // Use this for initialization
-    void Start() {
+    void Start()
+    {
         ARCamera = Camera.main.gameObject;
 
         // record initial scale, use this as a basis
@@ -32,7 +33,8 @@ public class MediaDisplay : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
         if (ARCamera == null)
         {
             return;

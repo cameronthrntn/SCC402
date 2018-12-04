@@ -252,9 +252,9 @@ public class RayCast : MonoBehaviour
             AudioSource hotspotAudio = gameObject.GetComponent<AudioSource>();
             if (hotspotAudio != null) {
                 assistantAudioSource.clip = hotspotAudio.clip;
-                //Debug.Log("Playing Audio");
+                Debug.Log("Playing Audio");
                 assistantAudioSource.Play();
-                //Debug.Log("Audio Stopped");
+                Debug.Log("Audio Stopped");
                 setFloatingTextActive(false);
             }
         } else {
@@ -268,7 +268,7 @@ public class RayCast : MonoBehaviour
     {
         //floatingText = gameObject.transform.Find("FloatingText").gameObject;
         setFloatingTextActive(true);
-        //Debug.Log("true");
+        Debug.Log("true");
         floatTextBack.fillAmount = 0;
         floatingTextGrowth = 0;
         HotspotName hotspotName = gameObject.GetComponent<HotspotName>();

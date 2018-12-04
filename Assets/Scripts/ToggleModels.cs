@@ -56,6 +56,7 @@ public class ToggleModels : MonoBehaviour
         }
 	}
 
+	private GameObject scenery;
 
 	public void Start()
 	{
@@ -69,6 +70,8 @@ public class ToggleModels : MonoBehaviour
 		monumentWireframe = FindObject(castleWireframes, "wireframeFull");
 		monumentWireframePartial = FindObject(castleWireframes, "wireframePartial");
 		monumentWireframeDestroyed = FindObject(castleWireframes, "wireframeDestroyed");
+
+		scenery = GameObject.Find("ObjectsFull");
 	}
 
 	public static GameObject FindObject(GameObject parent, string name)
@@ -127,6 +130,7 @@ public class ToggleModels : MonoBehaviour
 	private void setWireframeActive(GameObject wireframe, bool active)
 	{
 		wireframe.SetActive(active);
+		scenery.SetActive(!active);
 	}
 
 	private GameObject getActiveModel()

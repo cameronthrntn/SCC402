@@ -51,8 +51,7 @@ public class SmoothArCamera : MonoBehaviour
 		targetRotFixed = target.transform.rotation;
 	}
 
-	private float divideAmount = 0.5f;
-	private float multAmount = 1f;
+	private float divideAmount = 0.1f;
 
 	// Called after all update functions (so after Vuforia has updated camera position)
 	private void LateUpdate()

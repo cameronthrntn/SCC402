@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GestureCrossSection : MonoBehaviour
 {
-	private bool enabled = false;
+	public bool enabled = false;
 
 	private Camera camera;
 	private GameObject target;
@@ -22,7 +22,7 @@ public class GestureCrossSection : MonoBehaviour
 	}
 
 	void Update () {
-		if (!enabled)
+		if (!enabled || target == null)
 		{
 			return;
 		}

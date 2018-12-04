@@ -30,13 +30,14 @@ Shader "Ciconia Studio/Double Sided/Standard/Diffuse Bump" {
             #include "Lighting.cginc"
             #include "UnityPBSLighting.cginc"
             #include "UnityStandardBRDF.cginc"
-            #pragma multi_compile_fwdbase_fullshadows
+//            #pragma multi_compile_fwdbase_fullshadows
             #pragma multi_compile LIGHTMAP_OFF LIGHTMAP_ON
             #pragma multi_compile DIRLIGHTMAP_OFF DIRLIGHTMAP_COMBINED DIRLIGHTMAP_SEPARATE
             #pragma multi_compile DYNAMICLIGHTMAP_OFF DYNAMICLIGHTMAP_ON
             #pragma multi_compile_fog
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal d3d11_9x xboxone ps4 psp2 n3ds wiiu 
             #pragma target 3.0
+            #pragma nometa
             uniform sampler2D _MainTex; uniform float4 _MainTex_ST;
             uniform float4 _Color;
             uniform sampler2D _BumpMap; uniform float4 _BumpMap_ST;
@@ -102,6 +103,7 @@ Shader "Ciconia Studio/Double Sided/Standard/Diffuse Bump" {
                 float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz);
                 float3 lightColor = _LightColor0.rgb;
                 float3 halfDirection = normalize(viewDirection+lightDirection);
+//                float3 _ShadowCoord;
 ////// Lighting:
                 UNITY_LIGHT_ATTENUATION(attenuation,i, i.posWorld.xyz);
                 float3 attenColor = attenuation * _LightColor0.xyz;
@@ -224,13 +226,14 @@ Shader "Ciconia Studio/Double Sided/Standard/Diffuse Bump" {
             #include "Lighting.cginc"
             #include "UnityPBSLighting.cginc"
             #include "UnityStandardBRDF.cginc"
-            #pragma multi_compile_fwdadd_fullshadows
+//            #pragma multi_compile_fwdadd_fullshadows
             #pragma multi_compile LIGHTMAP_OFF LIGHTMAP_ON
             #pragma multi_compile DIRLIGHTMAP_OFF DIRLIGHTMAP_COMBINED DIRLIGHTMAP_SEPARATE
             #pragma multi_compile DYNAMICLIGHTMAP_OFF DYNAMICLIGHTMAP_ON
             #pragma multi_compile_fog
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal d3d11_9x xboxone ps4 psp2 n3ds wiiu 
             #pragma target 3.0
+            #pragma nometa
             uniform sampler2D _MainTex; uniform float4 _MainTex_ST;
             uniform float4 _Color;
             uniform sampler2D _BumpMap; uniform float4 _BumpMap_ST;
@@ -337,10 +340,10 @@ Shader "Ciconia Studio/Double Sided/Standard/Diffuse Bump" {
             ENDCG
         }
         Pass {
-            Name "ShadowCaster"
-            Tags {
-                "LightMode"="ShadowCaster"
-            }
+//            Name "ShadowCaster"
+//            Tags {
+//                "LightMode"="ShadowCaster"
+//            }
             Offset 1, 1
             Cull Off
             
@@ -354,7 +357,7 @@ Shader "Ciconia Studio/Double Sided/Standard/Diffuse Bump" {
             #include "UnityPBSLighting.cginc"
             #include "UnityStandardBRDF.cginc"
             #pragma fragmentoption ARB_precision_hint_fastest
-            #pragma multi_compile_shadowcaster
+//            #pragma multi_compile_shadowcaster
             #pragma multi_compile LIGHTMAP_OFF LIGHTMAP_ON
             #pragma multi_compile DIRLIGHTMAP_OFF DIRLIGHTMAP_COMBINED DIRLIGHTMAP_SEPARATE
             #pragma multi_compile DYNAMICLIGHTMAP_OFF DYNAMICLIGHTMAP_ON
@@ -367,7 +370,7 @@ Shader "Ciconia Studio/Double Sided/Standard/Diffuse Bump" {
                 float2 texcoord2 : TEXCOORD2;
             };
             struct VertexOutput {
-                V2F_SHADOW_CASTER;
+//                V2F_SHADOW_CASTER;
                 float2 uv1 : TEXCOORD1;
                 float2 uv2 : TEXCOORD2;
                 float4 posWorld : TEXCOORD3;
@@ -377,14 +380,14 @@ Shader "Ciconia Studio/Double Sided/Standard/Diffuse Bump" {
                 o.uv1 = v.texcoord1;
                 o.uv2 = v.texcoord2;
                 o.posWorld = mul(unity_ObjectToWorld, v.vertex);
-                o.pos = UnityObjectToClipPos( v.vertex );
-                TRANSFER_SHADOW_CASTER(o)
+//                o.pos = UnityObjectToClipPos( v.vertex );
+//                TRANSFER_SHADOW_CASTER(o)
                 return o;
             }
             float4 frag(VertexOutput i, float facing : VFACE) : COLOR {
-                float isFrontFace = ( facing >= 0 ? 1 : 0 );
-                float faceSign = ( facing >= 0 ? 1 : -1 );
-                float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
+//                float isFrontFace = ( facing >= 0 ? 1 : 0 );
+//                float faceSign = ( facing >= 0 ? 1 : -1 );
+//                float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
                 SHADOW_CASTER_FRAGMENT(i)
             }
             ENDCG
@@ -407,7 +410,7 @@ Shader "Ciconia Studio/Double Sided/Standard/Diffuse Bump" {
             #include "UnityStandardBRDF.cginc"
             #include "UnityMetaPass.cginc"
             #pragma fragmentoption ARB_precision_hint_fastest
-            #pragma multi_compile_shadowcaster
+//            #pragma multi_compile_shadowcaster
             #pragma multi_compile LIGHTMAP_OFF LIGHTMAP_ON
             #pragma multi_compile DIRLIGHTMAP_OFF DIRLIGHTMAP_COMBINED DIRLIGHTMAP_SEPARATE
             #pragma multi_compile DYNAMICLIGHTMAP_OFF DYNAMICLIGHTMAP_ON

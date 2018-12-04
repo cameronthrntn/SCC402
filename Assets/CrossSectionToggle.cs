@@ -13,11 +13,13 @@ public class CrossSectionToggle : MonoBehaviour {
 
 	private ToggleModels toggleModels;
 
+	private GestureCrossSection gestureCrossSection;
+
 	private void Start()
 	{
 		toggle = transform.gameObject.GetComponent<Toggle>();
 
-		toggleModels = GameObject.Find("Timeline").GetComponent<ToggleModels>();
+		gestureCrossSection = Camera.main.GetComponent<GestureCrossSection>();
 	}
 
 	public void ValueChanged()
@@ -32,9 +34,9 @@ public class CrossSectionToggle : MonoBehaviour {
 		if (toggle.isOn)
 		{
 			GetComponentInChildren<Image>().sprite = on;
-			if (toggleModels != null)
+			if (gestureCrossSection != null)
 			{
-				toggleModels.toggleWireframe();
+				gestureCrossSection.toggle();
 			}
 		}
 		else

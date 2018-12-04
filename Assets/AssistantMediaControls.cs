@@ -1,10 +1,5 @@
-﻿using System.Collections;
-using System.Threading;
+﻿using System.Threading;
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using Emoji = AssistantEmojis;
-
 
 public class AssistantMediaControls : MonoBehaviour {
 
@@ -14,35 +9,14 @@ public class AssistantMediaControls : MonoBehaviour {
 	private Renderer playBtnRenderer;
 
     public static int clipPlaying = 0;
-
-
-    public const string CRY = "cry";
-    public const string EYE = "eye";
-    public const string HAND = "hand";
-    public const string LARGE_SMILE = "largesmile";
-    public const string NORMAL = "normal";
-    public const string NUMBER_ONE = "numberone";
-    public const string SHOCKED = "shocked";
-    public const string SMILE = "smile";
-    public const string THINKING = "thinkingm";
-    public const string PEACE_SIGN = "twofingersm";
-    public const string ZOOM = "zoom";
-
-    public Dictionary<string, string[]> audioClips;        //Holds emoji reactions in relation to clip
-    private Renderer assistantScreenImage;
-
-
-
-    // Use this for initialization
-    void Start () {
+	
+	// Use this for initialization
+	void Start () {
 		playButtonMat = (Material) Resources.Load("playButton", typeof(Material));
 		pauseButtonMat = (Material) Resources.Load("pauseButton", typeof(Material));
 		
 		playBtnRenderer = transform.Find("play").GetComponent<Renderer>();
-
-        assistantScreenImage = gameObject.GetComponentInChildren<Renderer>();
-        initAudioClips();
-    }
+	}
 	
 	private void OnEnable()
 	{
@@ -54,24 +28,18 @@ public class AssistantMediaControls : MonoBehaviour {
 		RayCast.OnMediaEvent -= EventAction;
 	}
 
-	private void EventAction(int action, string emoji) {
-
-        if (emoji != "") {
-            assistantScreenImage.material = getEmojiMaterial(emoji);
-        }
-
+	private void EventAction(int action, string emoji)
+	{
+        clipPlaying += 1;
 
         switch (action)
 		{
 			case RayCast.MEDIA_EVENT_PLAYING:
 				playBtnRenderer.material = pauseButtonMat;
-
-                //Thread childThread = new Thread(play);
-                //childThread.Start(); //Runs play in separate thread
-
-                StartCoroutine(play());
-
+                Debug.Log(clipPlaying);
                 Debug.Log("Play pressed");
+                Thread.Sleep(10000);
+                growing = true;
 				break;
 			case RayCast.MEDIA_EVENT_PAUSED:
                 Debug.Log("Pause pressed");
@@ -79,6 +47,7 @@ public class AssistantMediaControls : MonoBehaviour {
 				break;
 			case RayCast.MEDIA_EVENT_STOPPED:
                 Debug.Log("Stopped pressed");
+                growing = false;
 				playBtnRenderer.material = playButtonMat;
 				break;
 			case RayCast.MEDIA_EVENT_PREV:
@@ -90,39 +59,35 @@ public class AssistantMediaControls : MonoBehaviour {
 		}
 	}
 
-    IEnumerator play() {
-        AudioSource audio = RayCast.assistantAudioSource;
-        Debug.Log(RayCast.audioName);
-        Debug.Log(audioClips[RayCast.audioName][0]);
-        int numClips = audioClips[RayCast.audioName].Length;
+	private bool growing = false;
+	private float scale = 0.1f;
+	private float rateOfGrowth = 0.1f;
+	private float growth = 0f;
 
-        for (int i = 0; i < numClips; i++) {
-            string toFile = "Assets/Audio/" + RayCast.audioName + "/" + RayCast.audioName + (i+1);
-            audio.clip = (AudioClip)Resources.Load(toFile);
-            audio.Play();
-            Debug.Log("" + i + " clip");
-            assistantScreenImage.material = getEmojiMaterial(audioClips[RayCast.audioName][i]);
-            yield return new WaitForSeconds(audio.clip.length);
-            //Thread.Sleep((int)(audio.clip.length * 1000)); //Wait for clip to end
-        }
-
-    }
-
-    private void initAudioClips() {
-        audioClips = new Dictionary<string, string[]>();
-        audioClips["EB"] = new string[] { Emoji.NORMAL, Emoji.SMILE, Emoji.CRY, Emoji.SHOCKED, Emoji.CRY };
-        audioClips["DR"] = new string[] { Emoji.NORMAL, Emoji.THINKING, Emoji.CRY, Emoji.SHOCKED, Emoji.THINKING };
-    }
-
-    private void Update(){
+	private void Update()
+	{
+//		lock (this) {
+//			if (growing) {
+//				if (growth >= 1) {
+//					growth = 1;
+//				} else {
+//					growth += rateOfGrowth;
+//				}
+//			} else {
+//				if (growth <= 0) {
+//					growth = 0;
+//				} else {
+//					growth -= rateOfGrowth;
+//				}
+//			}
+//		}
+//
+//		Plane plane = new Plane(Camera.main.transform.forward, Camera.main.transform.position);
+//		float dist = plane.GetDistanceToPoint(transform.position);
+//		transform.localScale = new Vector3(1, 1, 1) * scale * growth;//* dist;
 
 	}
 
-    public Material getEmojiMaterial(string emoji) {
-        Debug.Log(emoji);
-        return (Material)Resources.Load(emoji, typeof(Material));
-    }
 
-
-
+	
 }

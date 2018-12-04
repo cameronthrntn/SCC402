@@ -5,7 +5,6 @@ using UnityEngine;
 public class HotspotName : MonoBehaviour {
 
     public string name;
-    public string audioName;
 
 	// Use this for initialization
 	void Start () {

@@ -20,8 +20,8 @@ public class RayCast : MonoBehaviour
     public const int MEDIA_EVENT_PREV = 4;
     public const int MEDIA_EVENT_NEXT = 5;
 
-    public static Dictionary<string, string[]> audioClips;        //Holds emoji reactions in relation to clip
-    public static string audioName;                        //Name of the audio being played e.g. EB or DR
+    Dictionary<string, string[]> audioClips;        //Holds emoji reactions in relation to clip
+    public string audioName;                        //Name of the audio being played e.g. EB or DR
 
     private Camera camera;
     private RaycastHit hit;
@@ -61,7 +61,6 @@ public class RayCast : MonoBehaviour
     }
 
     private void initAudioClips() {
-        audioClips = new Dictionary<string, string[]>();
         audioClips["EB"] = new string[] { Emoji.NORMAL, Emoji.SMILE, Emoji.CRY, Emoji.SHOCKED, Emoji.CRY };
         audioClips["DR"] = new string[] { Emoji.NORMAL, Emoji.THINKING, Emoji.CRY, Emoji.SHOCKED, Emoji.THINKING };
     }
@@ -257,7 +256,7 @@ public class RayCast : MonoBehaviour
         if (play) {
             AudioSource hotspotAudio = gameObject.GetComponent<AudioSource>();
             HotspotName hotspotName = gameObject.GetComponent<HotspotName>();
-            audioName = hotspotName.audioName;
+            audioName = hotspotName.name;
             if (hotspotAudio != null) {
                 assistantAudioSource.clip = hotspotAudio.clip;
                 //Debug.Log("Playing Audio");

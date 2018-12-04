@@ -44,8 +44,9 @@ public class ButtonActions : MonoBehaviour
         }
     }
     
-    void OnMouseDown()
-    {
+    void OnMouseDown() {
+
+        
         switch (gameObject.name)
         {
             case "play":

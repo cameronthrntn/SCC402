@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Threading;
 using UnityEngine;
 
 public class AssistantMediaControls : MonoBehaviour {
@@ -8,6 +7,8 @@ public class AssistantMediaControls : MonoBehaviour {
 	private Material pauseButtonMat;
 	
 	private Renderer playBtnRenderer;
+
+    public static int clipPlaying = 0;
 	
 	// Use this for initialization
 	void Start () {
@@ -29,29 +30,32 @@ public class AssistantMediaControls : MonoBehaviour {
 
 	private void EventAction(int action, string emoji)
 	{
-			
-		switch (action)
+        clipPlaying += 1;
+
+        switch (action)
 		{
 			case RayCast.MEDIA_EVENT_PLAYING:
 				playBtnRenderer.material = pauseButtonMat;
-
-				growing = true;
-				
-				
+                Debug.Log(clipPlaying);
+                Debug.Log("Play pressed");
+                Thread.Sleep(10000);
+                growing = true;
 				break;
 			case RayCast.MEDIA_EVENT_PAUSED:
-				playBtnRenderer.material = playButtonMat;
+                Debug.Log("Pause pressed");
+                playBtnRenderer.material = playButtonMat;
 				break;
 			case RayCast.MEDIA_EVENT_STOPPED:
-				growing = false;
+                Debug.Log("Stopped pressed");
+                growing = false;
 				playBtnRenderer.material = playButtonMat;
 				break;
 			case RayCast.MEDIA_EVENT_PREV:
-				
+                Debug.Log("Prev pressed");
 				break;
 			case RayCast.MEDIA_EVENT_NEXT:
-				
-				break;
+                Debug.Log("Next pressed");
+                break;
 		}
 	}
 

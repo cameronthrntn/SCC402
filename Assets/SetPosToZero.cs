@@ -5,6 +5,6 @@ using UnityEngine;
 public class SetPosToZero : MonoBehaviour {
 
 	void LateUpdate () {
-		transform.localPosition = Vector3.zero;
+//		transform.localPosition = Vector3.zero;
 	}
 }

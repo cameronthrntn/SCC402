@@ -9,19 +9,19 @@ public class RayCast : MonoBehaviour
     public delegate void MediaEvent(int eventType, string emoji);
     public static event MediaEvent OnMediaEvent;
 
-    
-    
+
+
     public const int MEDIA_EVENT_PLAYING = 1;
     public const int MEDIA_EVENT_PAUSED = 2;
     public const int MEDIA_EVENT_STOPPED = 3;
     public const int MEDIA_EVENT_PREV = 4;
     public const int MEDIA_EVENT_NEXT = 5;
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
     private Camera camera;
     private RaycastHit hit;
 
@@ -65,7 +65,6 @@ public class RayCast : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit)) {
             rayHit(hit);
-
         } else {
             gazeLeftObject(null);
         }
@@ -76,14 +75,46 @@ public class RayCast : MonoBehaviour
 
         scaleFloatingtext();
 
-        if (objectPerformingActionOn != null && !assistantAudioSource.isPlaying) {
-            // ((Light)assistant.GetComponent<Light>()).enabled = false;
-            assistant.GetComponent<Renderer>().material = assistantMat;
-            objectPerformingActionOn = null;
-            //setFloatingTextActive(false);
-            //Debug.Log("False from line 66");
+        if (objectPerformingActionOn != null && !assistantAudioSource.isPlaying && !isPaused) {
+
+            if (audio != null && audio.Length > currentAudioIndex + 1)
+            {
+                currentAudioIndex++;
+                assistantAudioSource.clip = audio[currentAudioIndex];
+                if (OnMediaEvent != null)
+                {
+                    OnMediaEvent(MEDIA_EVENT_PLAYING, emoji[currentAudioIndex]);
+                }
+
+                Debug.Log("Next audio");
+                assistantAudioSource.Play();
+                setFloatingTextActive(false);
+            }
+            else
+            {
+                // ((Light)assistant.GetComponent<Light>()).enabled = false;
+                assistant.GetComponent<Renderer>().material = assistantMat;
+                objectPerformingActionOn = null;
+                //setFloatingTextActive(false);
+                onStoppedAudio();
+            }
+
+
         }
 
+    }
+
+    public void onStoppedAudio()
+    {
+        if (OnMediaEvent != null)
+        {
+            OnMediaEvent(MEDIA_EVENT_STOPPED, AssistantEmojis.mic);
+        }
+    }
+
+    public bool isPlaying()
+    {
+        return assistantAudioSource.isPlaying;
     }
 
     private void scaleFloatingtext()
@@ -117,11 +148,15 @@ public class RayCast : MonoBehaviour
     private void rayHit(RaycastHit hit)
     {
         GameObject objectRayHit = hit.transform.gameObject;
-        if (objectRayHit.name.Equals("AssistantContainer"))
+        if (objectRayHit.name.Equals("AssistantContainer")
+            || objectRayHit.name.Equals("play")
+            || objectRayHit.name.Equals("next")
+            || objectRayHit.name.Equals("prev")
+        )
         {
             return;
         }
-        
+
         if (gameObjectHit != objectRayHit) {
             startGazeAt(objectRayHit);
             return;
@@ -170,7 +205,7 @@ public class RayCast : MonoBehaviour
 
     private void startGazeAt(GameObject gameObject)
     {
-        gazeLeftObject(gameObject);
+//        gazeLeftObject(gameObject);
         findFloatingTextIn(gameObject);
 
         if (objectPerformingActionOn == null) {
@@ -198,40 +233,43 @@ public class RayCast : MonoBehaviour
             if (mediaDisplay != null) {
                 mediaDisplay.stopAction();
             }
-            prevGameObjectHit = null;
+//            prevGameObjectHit = null;
         }
 
         timeGazing = 0;
-        if (gameObjectHit != null) {
-            prevGameObjectHit = gameObjectHit;
-        }
+//        if (gameObjectHit != null) {
+//            prevGameObjectHit = gameObjectHit;
+//        }
         gameObjectHit = null;
         radialProgressBarFill.fillAmount = 0;
     }
 
-    //    private void clickButton(GameObject gameObject) { //Clicks a button, if the gameObject has one.
-    //        if (gameObject == null)
-    //        {
-    //            return;
-    //        }
-    //
-    //        Button btn = gameObject.GetComponent<Button>();
-    //        if (btn != null)
-    //        {
-    //            btn.onClick.Invoke();
-    //        }
-    //    }
+    private void stopAction()
+    {
+        if (prevGameObjectHit != null) {
+            setAssistantPlaying(prevGameObjectHit, false);
+
+            MediaDisplay mediaDisplay = prevGameObjectHit.GetComponentInChildren<MediaDisplay>();
+            if (mediaDisplay != null) {
+                mediaDisplay.stopAction();
+            }
+            prevGameObjectHit = null;
+        }
+
+        timeGazing = 0;
+//        gameObjectHit = null;
+        radialProgressBarFill.fillAmount = 0;
+    }
 
     private void performAction()
     {
+        stopAction();
+        prevGameObjectHit = gameObjectHit;
+
+        isPaused = false;
         hasPerformedActionOnObject = true;
         setAssistantPlaying(gameObjectHit, true);
 
-        if (OnMediaEvent != null)
-        {
-            OnMediaEvent(MEDIA_EVENT_PLAYING, AssistantEmojis.smile);
-        }
-        
         MediaDisplay mediaDisplay = gameObjectHit.GetComponentInChildren<MediaDisplay>();
         if (mediaDisplay != null) {
             mediaDisplay.startAction();
@@ -246,29 +284,98 @@ public class RayCast : MonoBehaviour
         //findFloatingTextIn(gameObjectHit);
     }
 
+    private AudioClip[] audio;
+    private string[] emoji;
+    private int currentAudioIndex = 0;
+
     private void setAssistantPlaying(GameObject gameObject, bool play)
     {
-        if (play) {
-            AudioSource hotspotAudio = gameObject.GetComponent<AudioSource>();
-            if (hotspotAudio != null) {
-                assistantAudioSource.clip = hotspotAudio.clip;
+        if (play)
+        {
+            audio = gameObject.GetComponent<HotspotName>().audio;
+            emoji = gameObject.GetComponent<HotspotName>().emoji;
+            currentAudioIndex = 0;
+
+            if (audio != null && audio.Length > 0) {
+                assistantAudioSource.clip = audio[currentAudioIndex];
+                if (OnMediaEvent != null)
+                {
+                    OnMediaEvent(MEDIA_EVENT_PLAYING, emoji[currentAudioIndex]);
+                }
+
                 Debug.Log("Playing Audio");
                 assistantAudioSource.Play();
-                Debug.Log("Audio Stopped");
                 setFloatingTextActive(false);
             }
         } else {
+            onStoppedAudio();
             assistantAudioSource.Stop();
         }
 
         assistant.GetComponent<Renderer>().material = assistantSpeakingMat;
     }
 
+    private bool isPaused = false;
+
+    public void pauseAudio()
+    {
+        isPaused = true;
+        assistantAudioSource.Pause();
+    }
+
+    public void unPauseAudio()
+    {
+        isPaused = false;
+        assistantAudioSource.UnPause();
+    }
+
+    public void nextAudio()
+    {
+        if (!assistantAudioSource.isPlaying)
+        {
+            return;
+        }
+
+        currentAudioIndex++;
+        if (audio != null && audio.Length > currentAudioIndex + 1)
+        {
+            assistantAudioSource.clip = audio[currentAudioIndex];
+            if (OnMediaEvent != null)
+            {
+                OnMediaEvent(MEDIA_EVENT_PLAYING, emoji[currentAudioIndex]);
+            }
+            assistantAudioSource.Play();
+        }
+    }
+
+    public void prevAudio()
+    {
+        if (!assistantAudioSource.isPlaying)
+        {
+            return;
+        }
+
+        currentAudioIndex--;
+        if (currentAudioIndex < 0)
+        {
+            currentAudioIndex = 0;
+        }
+        if (audio != null && audio.Length > 0)
+        {
+            assistantAudioSource.clip = audio[currentAudioIndex];
+            if (OnMediaEvent != null)
+            {
+                OnMediaEvent(MEDIA_EVENT_PLAYING, emoji[currentAudioIndex]);
+            }
+            assistantAudioSource.Play();
+        }
+    }
+
     private void findFloatingTextIn(GameObject gameObject)
     {
         //floatingText = gameObject.transform.Find("FloatingText").gameObject;
         setFloatingTextActive(true);
-        Debug.Log("true");
+//        Debug.Log("true");
         floatTextBack.fillAmount = 0;
         floatingTextGrowth = 0;
         HotspotName hotspotName = gameObject.GetComponent<HotspotName>();

@@ -12,36 +12,40 @@ public class ButtonActions : MonoBehaviour
 
     private Button btn;
 
+    private RayCast rayCastScript;
+
     void Start()
     {
         btn = GetComponent<Button>();
         
         assistantAudioSource = GameObject.Find("Assistant").GetComponent<AudioSource>();
+
+        rayCastScript = Camera.main.GetComponent<RayCast>();
     }
 
     void Update()
     {
 
-        if (assistantAudioSource == null)
-        {
-            return;
-        }
-
-        AudioClip clip = assistantAudioSource.clip;
-
-        if (assistantAudioSource.isPlaying)
-        {
-            int totalSizeOfAudio = (int)Math.Round(clip.length, 0);
-
-            float timeInterval = 0;
-
-            for (int i = 0; i < totalSizeOfAudio; i++)
-            {
-                timeInterval = timeInterval + delayTimeForForewardRewind;
-                //    Debug.LogError("timeInterval    " + timeInterval);
-                timingIntervalForAudio.Add(timeInterval);
-            }
-        }
+//        if (assistantAudioSource == null)
+//        {
+//            return;
+//        }
+//
+//        AudioClip clip = assistantAudioSource.clip;
+//
+//        if (assistantAudioSource.isPlaying)
+//        {
+//            int totalSizeOfAudio = (int)Math.Round(clip.length, 0);
+//
+//            float timeInterval = 0;
+//
+//            for (int i = 0; i < totalSizeOfAudio; i++)
+//            {
+//                timeInterval = timeInterval + delayTimeForForewardRewind;
+//                //    Debug.LogError("timeInterval    " + timeInterval);
+//                timingIntervalForAudio.Add(timeInterval);
+//            }
+//        }
     }
     
     void OnMouseDown()
@@ -51,44 +55,38 @@ public class ButtonActions : MonoBehaviour
             case "play":
                 if (assistantAudioSource.isPlaying)
                 {
-                    assistantAudioSource.Pause();
+                    rayCastScript.pauseAudio();
+//                    assistantAudioSource.Pause();
+                    GetComponent<Renderer>().material = (Material) Resources.Load("playButton", typeof(Material));
                 }
                 else
                 {
-                    assistantAudioSource.UnPause();
+                    rayCastScript.unPauseAudio();
+//                    assistantAudioSource.UnPause();
+                    GetComponent<Renderer>().material = (Material) Resources.Load("pauseButton", typeof(Material));
                 }
                 break;
             case "prev":
-                float currenttimeofaudio = assistantAudioSource.time;
 
-                int[] rewindarray = timingIntervalForAudio.ToArray(typeof(int)) as int[];
+                rayCastScript.prevAudio();
 
-                Debug.LogError(rewindarray.Length);
-
-                var indexofclosesttimeofaudioforrewind = timingIntervalForAudio.IndexOf(rewindarray, rewindarray.OrderBy(a => Math.Abs(currenttimeofaudio - a)).First());
-
-                assistantAudioSource.Stop();
-
-                assistantAudioSource.time = rewindarray[indexofclosesttimeofaudioforrewind - 1];
-
-                assistantAudioSource.Play();
+//                float currenttimeofaudio = assistantAudioSource.time;
+//                int[] rewindarray = timingIntervalForAudio.ToArray(typeof(int)) as int[];
+//                var indexofclosesttimeofaudioforrewind = timingIntervalForAudio.IndexOf(rewindarray, rewindarray.OrderBy(a => Math.Abs(currenttimeofaudio - a)).First());
+//                assistantAudioSource.Stop();
+//                assistantAudioSource.time = rewindarray[indexofclosesttimeofaudioforrewind - 1];
+//                assistantAudioSource.Play();
                 break;
             case "next":
-                currenttimeofaudio = assistantAudioSource.time;
 
-                int[] array = timingIntervalForAudio.ToArray(typeof(int)) as int[];
+                rayCastScript.nextAudio();
 
-                Debug.LogError(array.Length);
-
-
-                var indexofclosesttimeofaudio = timingIntervalForAudio.IndexOf(array, array.OrderBy(a => Math.Abs(currenttimeofaudio - a)).First());
-
-                assistantAudioSource.Stop();
-
-                assistantAudioSource.time = array[indexofclosesttimeofaudio + 1];
-
-                assistantAudioSource.Play();
-
+//                currenttimeofaudio = assistantAudioSource.time;
+//                int[] array = timingIntervalForAudio.ToArray(typeof(int)) as int[];
+//                var indexofclosesttimeofaudio = timingIntervalForAudio.IndexOf(array, array.OrderBy(a => Math.Abs(currenttimeofaudio - a)).First());
+//                assistantAudioSource.Stop();
+//                assistantAudioSource.time = array[indexofclosesttimeofaudio + 1];
+//                assistantAudioSource.Play();
                 break;
         }
     }

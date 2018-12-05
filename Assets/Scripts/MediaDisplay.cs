@@ -14,7 +14,7 @@ public class MediaDisplay : MonoBehaviour
     private bool growing = false;           //If the picture is growing or shrinking.
 
     // Makes the media scale smaller. Without this they're 70m+ in size
-    public float reductionMult = 1f;
+    private float reductionMult = 0.04f;
 
     // Use this for initialization
     void Start()

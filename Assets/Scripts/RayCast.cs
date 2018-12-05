@@ -75,11 +75,12 @@ public class RayCast : MonoBehaviour
 
         scaleFloatingtext();
 
-        if (objectPerformingActionOn != null && !assistantAudioSource.isPlaying && !isPaused) {
+        if (objectPerformingActionOn != null && !assistantAudioSource.isPlaying && !isPaused && assistantAudioSource.clip.name != "Ding") {
 
             if (audio != null && audio.Length > currentAudioIndex + 1)
             {
                 currentAudioIndex++;
+                Debug.Log(currentAudioIndex);
                 assistantAudioSource.clip = audio[currentAudioIndex];
                 if (OnMediaEvent != null)
                 {
@@ -261,6 +262,8 @@ public class RayCast : MonoBehaviour
         radialProgressBarFill.fillAmount = 0;
     }
 
+    public AudioClip ding;
+
     private void performAction()
     {
         stopAction();
@@ -268,6 +271,7 @@ public class RayCast : MonoBehaviour
 
         isPaused = false;
         hasPerformedActionOnObject = true;
+
         setAssistantPlaying(gameObjectHit, true);
 
         MediaDisplay mediaDisplay = gameObjectHit.GetComponentInChildren<MediaDisplay>();
@@ -278,7 +282,6 @@ public class RayCast : MonoBehaviour
 
         if (objectPerformingActionOn != null) {
             setFloatingTextActive(false);
-            Debug.Log("False from line 225");
         }
         objectPerformingActionOn = gameObjectHit;
         //findFloatingTextIn(gameObjectHit);
@@ -287,6 +290,24 @@ public class RayCast : MonoBehaviour
     private AudioClip[] audio;
     private string[] emoji;
     private int currentAudioIndex = 0;
+
+    IEnumerator test(AudioClip clip, string emoji) {
+
+        assistantAudioSource.clip = ding;
+        assistantAudioSource.Play();
+
+        yield return new WaitForSeconds(1);
+        
+        
+        assistantAudioSource.clip = clip;
+        if (OnMediaEvent != null)
+        {
+            OnMediaEvent(MEDIA_EVENT_PLAYING, emoji);
+        }
+
+        assistantAudioSource.Play();
+
+    }
 
     private void setAssistantPlaying(GameObject gameObject, bool play)
     {
@@ -297,14 +318,12 @@ public class RayCast : MonoBehaviour
             currentAudioIndex = 0;
 
             if (audio != null && audio.Length > 0) {
-                assistantAudioSource.clip = audio[currentAudioIndex];
-                if (OnMediaEvent != null)
-                {
-                    OnMediaEvent(MEDIA_EVENT_PLAYING, emoji[currentAudioIndex]);
-                }
 
-                Debug.Log("Playing Audio");
-                assistantAudioSource.Play();
+
+                StartCoroutine(test(audio[currentAudioIndex], emoji[currentAudioIndex]));
+
+
+
                 setFloatingTextActive(false);
             }
         } else {

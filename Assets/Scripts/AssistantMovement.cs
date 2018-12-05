@@ -8,9 +8,11 @@ public class AssistantMovement : MonoBehaviour
 	private float smoothTime = defaultSmoothTime;
 	private Vector3 velocity = Vector3.zero;
 
-	private int offsetX = 5;
-	private int offsetY = 3;
-	private int offsetZ = 15;
+
+	private static Vector3 assistantPosTalking = new Vector3(3, 2, 11);
+	private static Vector3 assistantPosDefault = new Vector3(5, 3, 15);
+	private Vector3 assistantPos = assistantPosDefault;
+
 
 	private Vector3 screenPoint;
 	private Vector3 offset;
@@ -94,26 +96,45 @@ public class AssistantMovement : MonoBehaviour
 	
 	
 	
+	private void OnEnable()
+	{
+		RayCast.OnMediaEvent += EventAction;
+	}
+
+	private void OnDisable()
+	{
+		RayCast.OnMediaEvent -= EventAction;
+	}
 	
-	
-	
+	private void EventAction(int action, string emoji)
+	{
+		switch (action) {
+			case RayCast.MEDIA_EVENT_PLAYING:
+				assistantPos = assistantPosTalking;
+				break;
+			default:
+				assistantPos = assistantPosDefault;
+				break;
+		}
+	}
+
 	void Update()
 	{
-		Vector3 targetPosition = Camera.main.transform.TransformPoint(new Vector3(offsetX, offsetY, offsetZ));
+		Vector3 targetPosition = Camera.main.transform.TransformPoint(assistantPos);
 		
 		
 		if (assistantAudioSource.isPlaying)
 		{
-			if (assistantAudioSource.clip.name == "Intro")
+			if (assistantAudioSource.clip.name.Equals("Intro") && !assistantAudioSource.clip.name.Equals("Ding"))
 			{
 				targetPosition = Camera.main.transform.TransformPoint(new Vector3(0, 0, 10));
 				transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
 				transform.LookAt(Camera.main.transform);
 				numberOfTimesIntroHasBeenPlayed = numberOfTimesIntroHasBeenPlayed + 1;
 				return;
-			}           
+			}
 		}
-		
+
 		
 		
 		

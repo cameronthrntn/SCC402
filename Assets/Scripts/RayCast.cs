@@ -36,8 +36,8 @@ public class RayCast : MonoBehaviour
     public Image radialProgressBar;
     public Image radialProgressBarFill;
     public GameObject assistant;
-    public Material assistantMat;
-    public Material assistantSpeakingMat;
+    // public Material assistantMat;
+    // public Material assistantSpeakingMat;
     public Text hotSpotText;
 
     private AudioSource assistantAudioSource;
@@ -94,7 +94,7 @@ public class RayCast : MonoBehaviour
             else
             {
                 // ((Light)assistant.GetComponent<Light>()).enabled = false;
-                assistant.GetComponent<Renderer>().material = assistantMat;
+                // assistant.GetComponent<Renderer>().material = assistantMat;
                 objectPerformingActionOn = null;
                 //setFloatingTextActive(false);
                 onStoppedAudio();
@@ -153,6 +153,7 @@ public class RayCast : MonoBehaviour
             || objectRayHit.name.Equals("play")
             || objectRayHit.name.Equals("next")
             || objectRayHit.name.Equals("prev")
+            || objectRayHit.name.Equals("cross")
         )
         {
             return;
@@ -333,7 +334,7 @@ public class RayCast : MonoBehaviour
             emoji = null;
         }
 
-        assistant.GetComponent<Renderer>().material = assistantSpeakingMat;
+        // assistant.GetComponent<Renderer>().material = assistantSpeakingMat;
     }
 
     private bool isPaused = false;

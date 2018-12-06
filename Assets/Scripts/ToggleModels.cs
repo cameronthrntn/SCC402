@@ -53,6 +53,12 @@ public class ToggleModels : MonoBehaviour
 	            setMonumentDestroyed();
 	            toggleWireframe();
                 break;
+            case ReceiveResult.EVENT_CASTLE:
+	            setMonumentActive();
+                break;
+            case ReceiveResult.EVENT_WIREFRAME:
+	            setWireframeActive();
+                break;
         }
 	}
 
@@ -83,6 +89,51 @@ public class ToggleModels : MonoBehaviour
 			}
 		}
 		return null;
+	}
+
+	public void setMonumentActive() {
+		if (monumentFull.activeSelf || monumentPartial.activeSelf || monumentDestroyed.activeSelf) {
+			return;
+		}
+
+		if (monumentWireframe.activeSelf) {
+			setMonumentFull();
+			return;
+		}
+
+		if (monumentWireframePartial.activeSelf) {
+			setMonumentPartial();
+			return;
+		}
+
+		if (monumentWireframeDestroyed.activeSelf) {
+			setMonumentDestroyed();
+			return;
+		}
+	}
+
+	public void setWireframeActive() {
+		if (monumentWireframe.activeSelf || monumentWireframeDestroyed.activeSelf || monumentWireframePartial.activeSelf) {
+			return;
+		}
+
+		if (monumentFull.activeSelf) {
+			setMonumentFull();
+			toggleWireframe();
+			return;
+		}
+
+		if (monumentPartial.activeSelf) {
+			setMonumentPartial();
+			toggleWireframe();
+			return;
+		}
+
+		if (monumentDestroyed.activeSelf) {
+			setMonumentDestroyed();
+			toggleWireframe();
+			return;
+		}
 	}
 
 	public void toggleWireframe()

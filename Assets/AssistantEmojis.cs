@@ -60,7 +60,6 @@ public class AssistantEmojis : MonoBehaviour
 
 	public Material getEmojiMaterial(string emoji)
 	{
-		Debug.Log(emoji);
 		return (Material) Resources.Load(emoji, typeof(Material));
 	}
 

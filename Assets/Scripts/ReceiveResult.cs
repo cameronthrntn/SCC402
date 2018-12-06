@@ -16,13 +16,17 @@ public class ReceiveResult : MonoBehaviour
     public const string EVENT_FULL_WIREFRAME = "EVENT_FULL_WIREFRAME";
     public const string EVENT_PARTIAL_WIREFRAME = "EVENT_PARTIAL_WIREFRAME";
     public const string EVENT_DESTROYED_WIREFRAME = "EVENT_DESTROYED_WIREFRAME";
+    public const string EVENT_WIREFRAME = "EVENT_WIREFRAME";
+    public const string EVENT_CASTLE = "EVENT_CASTLE";
 
-    public const string CMD_FULL_CASTLE = "full castle";
-    public const string CMD_PARTIAL_CASTLE = "partial castle";
-    public const string CMD_DESTROYED_CASTLE = "destroyed castle";
-    public const string CMD_FULL_WIREFRAME = "full wireframe";
-    public const string CMD_PARTIAL_WIREFRAME = "partial wireframe";
-    public const string CMD_DESTROYED_WIREFRAME = "destroyed wireframe";
+    public const string CMD_FULL_CASTLE = "castle in 1812";
+    public const string CMD_PARTIAL_CASTLE = "castle in 1700";
+    public const string CMD_DESTROYED_CASTLE = "castle in 1200";
+    public const string CMD_FULL_WIREFRAME = "wireframe in 1812";
+    public const string CMD_PARTIAL_WIREFRAME = "wireframe in 1700";
+    public const string CMD_DESTROYED_WIREFRAME = "wireframe in 1200";
+    public const string CMD_WIREFRAME = "wireframe";
+    public const string CMD_CASTLE = "castle";
 
 
     public const string CMD_SCALE_UP = "scale up";
@@ -41,6 +45,9 @@ public class ReceiveResult : MonoBehaviour
         phraseResultEvents.Add(CMD_FULL_WIREFRAME, EVENT_FULL_WIREFRAME);
         phraseResultEvents.Add(CMD_PARTIAL_WIREFRAME, EVENT_PARTIAL_WIREFRAME);
         phraseResultEvents.Add(CMD_DESTROYED_WIREFRAME, EVENT_DESTROYED_WIREFRAME);
+
+        phraseResultEvents.Add(CMD_CASTLE, EVENT_CASTLE);
+        phraseResultEvents.Add(CMD_WIREFRAME, EVENT_WIREFRAME);
     }
 
 

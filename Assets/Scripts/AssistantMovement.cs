@@ -54,18 +54,15 @@ public class AssistantMovement : MonoBehaviour
 		{
 			if (assistantAudioSource.isPlaying)
 			{
-				Debug.Log("here1");
 				GameObject.Find("MediaControls").GetComponent<AssistantMediaControls>().toggleGrowing();
 			}
 			else
 			{
-				Debug.Log("here2");
 				GameObject.Find("EventSystem").GetComponent<Test>().TaskOnClick();
 			}
 		}
 		else
 		{
-			Debug.Log("here3");
 			moveSettingsIn = prevPosition.y > curPosition.y;
 
 			smoothTime = defaultSmoothTime;
@@ -118,6 +115,8 @@ public class AssistantMovement : MonoBehaviour
 		}
 	}
 
+	int hasInitiallySetEmoji = -1;
+
 	void Update()
 	{
 		Vector3 targetPosition = Camera.main.transform.TransformPoint(assistantPos);
@@ -131,10 +130,14 @@ public class AssistantMovement : MonoBehaviour
 				transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
 				transform.LookAt(Camera.main.transform);
 				numberOfTimesIntroHasBeenPlayed = numberOfTimesIntroHasBeenPlayed + 1;
+				hasInitiallySetEmoji = 0;
 				return;
 			}
 		}
-
+		if (hasInitiallySetEmoji == 0 && !assistantAudioSource.isPlaying && assistantAudioSource.clip.name.Equals("Intro")) {
+			hasInitiallySetEmoji = 1;
+			GameObject.Find("display").GetComponent<Renderer>().material = (Material) Resources.Load(AssistantEmojis.mic, typeof(Material));
+		}
 		
 		
 		

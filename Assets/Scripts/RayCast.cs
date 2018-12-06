@@ -245,7 +245,7 @@ public class RayCast : MonoBehaviour
         radialProgressBarFill.fillAmount = 0;
     }
 
-    private void stopAction()
+    public void stopAction()
     {
         if (prevGameObjectHit != null) {
             setAssistantPlaying(prevGameObjectHit, false);
@@ -329,6 +329,8 @@ public class RayCast : MonoBehaviour
         } else {
             onStoppedAudio();
             assistantAudioSource.Stop();
+            audio = null;
+            emoji = null;
         }
 
         assistant.GetComponent<Renderer>().material = assistantSpeakingMat;

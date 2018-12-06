@@ -5,7 +5,7 @@ public class FPSDisplay : MonoBehaviour
 {
 	float deltaTime = 0.0f;
 
-	private int size = 5;
+	private int size = 2;
 
 	void Update()
 	{

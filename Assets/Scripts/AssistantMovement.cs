@@ -9,7 +9,7 @@ public class AssistantMovement : MonoBehaviour
 	private Vector3 velocity = Vector3.zero;
 
 
-	private static Vector3 assistantPosTalking = new Vector3(3, 2, 11);
+	private static Vector3 assistantPosTalking = new Vector3(4, 2, 11);
 	private static Vector3 assistantPosDefault = new Vector3(5, 3, 15);
 	private Vector3 assistantPos = assistantPosDefault;
 

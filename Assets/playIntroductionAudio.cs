@@ -4,22 +4,27 @@
 public class playIntroductionAudio : MonoBehaviour
 {
 	private AudioSource assistantAudioSource;
-	private int numberOfTimesVisible = 0;
 	
 	void Start()
 	{
 		assistantAudioSource = GetComponent<AudioSource>();  
 	}
 
+	bool hasPlayed = false;
+	int hasPlayedPref = 0;
+
 	void OnBecameVisible()
 	{
-  
-		if (numberOfTimesVisible < 1 && assistantAudioSource != null)
+		if (!hasPlayed && assistantAudioSource != null)
 		{
-			assistantAudioSource.Play();
+			hasPlayedPref = PlayerPrefs.GetInt("played_intro");
+			
+			if (hasPlayedPref == 0) {
+				PlayerPrefs.SetInt("played_intro", 1);
+				assistantAudioSource.Play();
+			}
+			
+			hasPlayed = true;
 		}
-
-		numberOfTimesVisible = numberOfTimesVisible + 1;
-		enabled = true;
 	}
 }

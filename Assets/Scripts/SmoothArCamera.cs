@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SmoothArCamera : MonoBehaviour
 {
+
+	public bool smoothEnabled = true;
+
 	private Vector3 cameraPosFixed = Vector3.zero;
 	private Vector3 cameraPosLate = Vector3.zero;
 
@@ -52,6 +55,10 @@ public class SmoothArCamera : MonoBehaviour
 	// Called after all update functions (so after Vuforia has updated camera position)
 	private void LateUpdate()
 	{
+		if (!smoothEnabled) {
+			return;
+		}
+
 		cameraPosLate = transform.position;
 		cameraRotLate = transform.rotation;
 

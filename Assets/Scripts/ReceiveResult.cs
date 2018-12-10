@@ -19,12 +19,12 @@ public class ReceiveResult : MonoBehaviour
     public const string EVENT_WIREFRAME = "EVENT_WIREFRAME";
     public const string EVENT_CASTLE = "EVENT_CASTLE";
 
-    public const string CMD_FULL_CASTLE = "castle in 1812";
+    public const string CMD_FULL_CASTLE = "castle in 1200";
     public const string CMD_PARTIAL_CASTLE = "castle in 1700";
-    public const string CMD_DESTROYED_CASTLE = "castle in 1200";
-    public const string CMD_FULL_WIREFRAME = "wireframe in 1812";
+    public const string CMD_DESTROYED_CASTLE = "castle in 1812";
+    public const string CMD_FULL_WIREFRAME = "wireframe in 1200";
     public const string CMD_PARTIAL_WIREFRAME = "wireframe in 1700";
-    public const string CMD_DESTROYED_WIREFRAME = "wireframe in 1200";
+    public const string CMD_DESTROYED_WIREFRAME = "wireframe in 1812";
     public const string CMD_WIREFRAME = "wireframe";
     public const string CMD_CASTLE = "castle";
 

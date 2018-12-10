@@ -11,7 +11,7 @@ public class AssistantMovement : MonoBehaviour
 
 	private static Vector3 assistantPosTalking = new Vector3(4, 2, 11);
 	private static Vector3 assistantPosDefault = new Vector3(6, 3, 15);
-	private static Vector3 assistantPosIntro = new Vector3(0, 1, 10);
+	private static Vector3 assistantPosIntro = new Vector3(0, 0.5f, 10);
 
 	private Vector3 assistantPos = assistantPosDefault;
 

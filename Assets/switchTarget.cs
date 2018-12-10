@@ -16,5 +16,7 @@ public class switchTarget : MonoBehaviour {
 		castle.transform.parent = objectToMoveTo;
 		castle.transform.localPosition = Vector3.zero;
 		castle.transform.localRotation = new Quaternion(0, 0, 0, castle.transform.localRotation.w);
+
+		Vibration.Vibrate(20);
 	}
 }

@@ -12,6 +12,9 @@ public class AssistantMovement : MonoBehaviour
 	private static Vector3 assistantPosTalking = new Vector3(4, 2, 11);
 	private static Vector3 assistantPosDefault = new Vector3(6, 3, 15);
 	private static Vector3 assistantPosIntro = new Vector3(0, 0.5f, 10);
+	private static Vector3 assistantPosSettings = new Vector3(3, -1, 11);
+
+	
 
 	private Vector3 assistantPos = assistantPosDefault;
 
@@ -147,7 +150,7 @@ public class AssistantMovement : MonoBehaviour
 		}
 		
 		if (moveSettingsIn) { //Making settings visible
-			targetPosition = Camera.main.transform.TransformPoint(new Vector3(2, -1, 10));
+			targetPosition = Camera.main.transform.TransformPoint(assistantPosSettings);
 			settingsMenu.position = Vector3.Lerp(settingsMenu.position, Vector3.zero, Time.deltaTime * transitionSpeed);
 			settingsVisible = true;
 

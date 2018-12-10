@@ -10,7 +10,9 @@ public class AssistantMovement : MonoBehaviour
 
 
 	private static Vector3 assistantPosTalking = new Vector3(5, 2, 11);
-	private static Vector3 assistantPosDefault = new Vector3(6, 3, 15);
+	private static Vector3 assistantPosDefault = new Vector3(5, 3, 15);
+	private static Vector3 assistantPosIntro = new Vector3(0, 1, 10);
+
 	private Vector3 assistantPos = assistantPosDefault;
 
 
@@ -21,8 +23,7 @@ public class AssistantMovement : MonoBehaviour
 	
 	private GameObject assistant;
 	private AudioSource assistantAudioSource;
-	public int numberOfTimesIntroHasBeenPlayed = 0;
-
+	
 	private float time = 0;
 	private Vector3 initialTouch;
 
@@ -119,18 +120,24 @@ public class AssistantMovement : MonoBehaviour
 
 	void Update()
 	{
+		// Debug.Log("402HCI" + Camera.main.transform.rotation);
+		// Debug.Log("402HCI" + assistant.transform.rotation);
+
 		Vector3 targetPosition = Camera.main.transform.TransformPoint(assistantPos);
-		
 		
 		if (assistantAudioSource.isPlaying)
 		{
 			if (assistantAudioSource.clip.name.Equals("Intro") && !assistantAudioSource.clip.name.Equals("Ding"))
 			{
-				targetPosition = Camera.main.transform.TransformPoint(new Vector3(0, 0, 10));
+				targetPosition = Camera.main.transform.TransformPoint(assistantPosIntro);
 				transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
 				transform.LookAt(Camera.main.transform);
-				numberOfTimesIntroHasBeenPlayed = numberOfTimesIntroHasBeenPlayed + 1;
 				hasInitiallySetEmoji = 0;
+
+				if (Camera.main.transform.rotation.x == -1)
+				{
+					transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, 180, transform.rotation.w);
+				}
 				return;
 			}
 		}
@@ -138,8 +145,6 @@ public class AssistantMovement : MonoBehaviour
 			hasInitiallySetEmoji = 1;
 			GameObject.Find("display").GetComponent<Renderer>().material = (Material) Resources.Load(AssistantEmojis.mic, typeof(Material));
 		}
-		
-		
 		
 		if (moveSettingsIn) { //Making settings visible
 			targetPosition = Camera.main.transform.TransformPoint(new Vector3(2, -1, 10));
@@ -154,9 +159,6 @@ public class AssistantMovement : MonoBehaviour
 			settingsVisible = false;
 			//			settingsMenu.position = Vector3.SmoothDamp(Vector3.zero, initialPos, ref buttonVelocity, 0.02f);
 		}
-		
-		
-		
 		
 		if (curPosition != Vector3.zero)
 		{

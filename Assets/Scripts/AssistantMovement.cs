@@ -83,7 +83,7 @@ public class AssistantMovement : MonoBehaviour
 		assistantAudioSource = assistant.gameObject.GetComponent<AudioSource>();
 	}
 
-	private bool moveSettingsIn = false;
+	public bool moveSettingsIn = false;
 	private RectTransform settingsMenu;
 	private Vector3 initialPos;
 	private Vector3 buttonVelocity = Vector3.zero;
